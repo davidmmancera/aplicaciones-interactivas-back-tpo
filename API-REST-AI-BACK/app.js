@@ -9,6 +9,8 @@ var cors = require('cors');
 //importo router
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/user.route'); //Custom
+var apiTeacherRouter = require('./routes/teacher.route');
+var apiStudentRouter = require('./routes/student.route');
 var utilRouter = require('./routes/utils');
 
 //instancio el servidor
@@ -30,7 +32,10 @@ app.use('/users', apiRouter);
 app.use('/', indexRouter);
 app.use('/utils/',utilRouter);
 
-//onsole.log("processENV",process.env);
+app.use('/teacher', apiTeacherRouter);
+app.use('/student', apiStudentRouter);
+
+//onsole.log("processENV", process.env);
 if (process.env.NODE_ENV === 'Development') {
   require('./config').config();
 }
