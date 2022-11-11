@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router()
 var UserController = require('../controllers/users.controller');
 var UploadController = require('../controllers/upload.controller');
-var MailController = require('../controllers/mail.controller');
+var MailController = require('../controllers/Users/mail.controller');
 var Authorization = require('../auth/authorization');
 
 

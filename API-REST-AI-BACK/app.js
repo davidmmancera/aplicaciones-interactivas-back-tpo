@@ -1,20 +1,20 @@
 //Express
-var express = require('express');
-var cookieParser = require('cookie-parser');
-var bluebird = require('bluebird');
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const bluebird = require('bluebird');
 
 //incorporo cors
-var cors = require('cors');
+const cors = require('cors');
 
 //importo router
-var indexRouter = require('./routes/index');
-var apiRouter = require('./routes/user.route'); //Custom
-var apiTeacherRouter = require('./routes/teacher.route');
-var apiStudentRouter = require('./routes/student.route');
-var utilRouter = require('./routes/utils');
+const indexRouter = require('./routes/index');
+const apiRouter = require('./routes/user.route'); //Custom
+const apiTeacherRouter = require('./routes/teacher.route');
+const apiStudentRouter = require('./routes/student.route');
+const utilRouter = require('./routes/utils');
 
 //instancio el servidor
-var app = express();
+const app = express();
 
 //engine que permite renderizar paginas web
 app.set('view engine', 'jade');
@@ -57,7 +57,7 @@ mongoose.connect(url,opts)
     console.log(`Succesfully Connected to theMongodb Database..`)
   })
   .catch((e) => {
-    console.log(`Error Connecting to the Mongodb Database...`),
+    console.log(`Error Connecting to the Mongodb Database...`)
     console.log(e)
   })
 

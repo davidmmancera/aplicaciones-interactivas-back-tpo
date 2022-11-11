@@ -1,5 +1,5 @@
-var UserService = require('../services/user.service');
-var UserImgService =require('../services/userImg.service');
+const UserService = require('../services/Users/user.service');
+const UserImgService = require('../services/Users/userImg.service');
 
 // Saving the context of this module inside the _the variable
 _this = this;
@@ -91,10 +91,10 @@ exports.removeUser = async function (req, res, next) {
 exports.loginUser = async function (req, res) {
     // Req.Body contains the form submit values.
     console.log("body",req.body)
-    var User = {
+    const User = {
         email: req.body.email,
         password: req.body.password
-    }
+    };
     try {
         // Calling the Service function with the new object from the Request Body
         var loginUser = await UserService.loginUser(User);
