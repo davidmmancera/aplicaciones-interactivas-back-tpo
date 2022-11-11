@@ -1,4 +1,4 @@
-var CommentService = require('../../services/Comments/comment.service');
+const CommentService = require('../../services/Comments/comment.service');
 
 // Saving the context of this module inside the _the variable
 _this = this;

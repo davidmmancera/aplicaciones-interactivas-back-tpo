@@ -1,5 +1,5 @@
 // Gettign the Newly created Mongoose Model we just created 
-var User = require('../models/Users/User.model');
+var User = require('../../models/Users/User.model');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 
