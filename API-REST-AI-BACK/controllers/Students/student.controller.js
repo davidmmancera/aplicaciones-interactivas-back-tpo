@@ -1,5 +1,5 @@
-var StudentService = require('../services/student.service');
-var StudentImgService =require('../services/studentImg.service');
+var StudentService = require('../../services/student.service');
+var StudentImgService =require('../../services/studentImg.service');
 
 // Saving the context of this module inside the _the variable
 _this = this;

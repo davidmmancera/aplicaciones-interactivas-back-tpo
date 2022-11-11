@@ -1,5 +1,5 @@
 // Gettign the Newly created Mongoose Model we just created 
-var TeacherImg = require('../models/Teachers/TeacherImg.model');
+var StudentImg = require('../../models/Students/StudentImg.model');
 
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
@@ -25,7 +25,7 @@ exports.getImagenes = async function (query, page, limit) {
     }
     // Try Catch the awaited promise to handle the error 
     try {
-        var Imagenes = await TeacherImg.paginate(query, options)
+        var Imagenes = await StudentImg.paginate(query, options)
         // Return the Contact list that was retured by the mongoose promise
         return Imagenes;
 
@@ -36,7 +36,7 @@ exports.getImagenes = async function (query, page, limit) {
 }
 
 // Async function to get the Contact List
-exports.getImagenesByTeacher = async function (query, page, limit) {
+exports.getImagenesByStudent = async function (query, page, limit) {
 
     // Options setup for the mongoose paginate
     var options = {
@@ -46,10 +46,10 @@ exports.getImagenesByTeacher = async function (query, page, limit) {
     // Try Catch the awaited promise to handle the error 
     console.log("byDni",query)
     try {
-        var TeacherImagenes = await TeacherImg.paginate(query, options)
+        var StudentImagenes = await StudentImg.paginate(query, options)
         // Return the Control list that was retured by the mongoose promise
-        console.log("videos by dni",TeacherImagenes)
-        return TeacherImagenes;
+        console.log("videos by dni",StudentImagenes)
+        return StudentImagenes;
 
     } catch (e) {
         // return a Error message describing the reason 
@@ -57,37 +57,37 @@ exports.getImagenesByTeacher = async function (query, page, limit) {
     }
 }
 
-async function savedTeacherImg (newTeacherImg)
+async function savedStudentImg (newStudentImg)
 {
 
     try {
         // Saving the Control 
-        var savedTeacherImg = await newTeacherImg.save();
+        var savedStudentImg = await newStudentImg.save();
         
-        return savedTeacherImg;
+        return savedStudentImg;
     } catch (e) {
         // return a Error message describing the reason 
     console.log(e)    
-    throw Error("Error while Creating Imagen Teacher")
+    throw Error("Error while Creating Imagen Student")
 }
 }
-exports.createTeacherImg = async function (teacherImg) {
+exports.createStudentImg = async function (studentImg) {
     
     //subir imagen a cloudinary
-    console.log("teacherImg",teacherImg)
+    console.log("studentImg",studentImg)
     let urlImg;
-    let imagen = process.env.UPLOAD_DIR + teacherImg.nombreImagen;
+    let imagen = process.env.UPLOAD_DIR + studentImg.nombreImagen;
     cloudinary.uploader.upload(imagen, function(result) { 
         console.log("Resultado",result);
         //urlImg=result.url;
         // Creating a new Mongoose Object by using the new keyword
-        var newTeacherImg = new TeacherImg({      
-            mail: teacherImg.email,
+        var newStudentImg = new StudentImg({      
+            mail: studentImg.email,
             date: new Date(),
             nombreImagen: result.url
         })
         
-        savedTeacherImg(newTeacherImg);
+        savedStudentImg(newStudentImg);
     });
     
     
