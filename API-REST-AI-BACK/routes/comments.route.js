@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const CommentController = require('../controllers/Comments/comment.controller');
-
+var Authorization = require('../auth/authorization');
 // Authorize each API with middleware and map to the Controller Functions
 /* GET comments listing. */
 router.get('/testComments', function(req, res) {

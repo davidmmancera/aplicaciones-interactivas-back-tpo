@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const FrequencyController = require('../controllers/others/frequency.controller');
-
+var Authorization = require('../auth/authorization');
 // Authorize each API with middleware and map to the Controller Functions
 /* GET frequency listing. */
 router.get('/testFrequency', function(req, res) {

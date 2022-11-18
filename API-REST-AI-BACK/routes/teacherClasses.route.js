@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const TeacherClassesController = require('../controllers/Teachers/classes.controller');
-
+var Authorization = require('../auth/authorization');
 // Authorize each API with middleware and map to the Controller Functions
 /* GET teachers classes listing. */
 router.get('/testTeachersClasses', function(req, res) {

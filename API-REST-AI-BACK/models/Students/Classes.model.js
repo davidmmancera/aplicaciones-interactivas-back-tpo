@@ -17,6 +17,6 @@ var ClassSchema = new mongoose.Schema({
 })
 
 ClassSchema.plugin(mongoosePaginate)
-const Class = mongoose.model('Class', ClassSchema)
+const ClassStudent = mongoose.model('ClassStd', ClassSchema)
 
-module.exports = Class;
+module.exports = ClassStudent;

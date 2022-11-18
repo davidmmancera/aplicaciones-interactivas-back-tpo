@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const QualificationController = require('../controllers/others/qualification.controller');
-
+var Authorization = require('../auth/authorization');
 // Authorize each API with middleware and map to the Controller Functions
 /* GET qualification listing. */
 router.get('/testQualification', function(req, res) {
