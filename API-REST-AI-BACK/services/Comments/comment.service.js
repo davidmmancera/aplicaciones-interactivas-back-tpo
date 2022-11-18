@@ -30,7 +30,7 @@ exports.getComments = async function (query, page, limit) {
 
 exports.createComment = async function (comment) {
     // Creating a new Mongoose Object by using the new keyword
-    var hashedPassword = bcrypt.hashSync(comment.key, 8);
+    // var hashedPassword = bcrypt.hashSync(comment.key, 8);
 
     var newComment = new Comment({
         key: comment.key,
