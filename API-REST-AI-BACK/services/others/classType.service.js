@@ -18,7 +18,7 @@ exports.getClassType = async function (query, page, limit) {
     try {
         console.log("Query",query)
         var ClassesTypes = await ClassType.paginate(query, options)
-        // Return the students list that was retured by the mongoose promise
+        // Return the classType list that was retured by the mongoose promise
         return ClassesTypes;
 
     } catch (e) {
@@ -31,7 +31,7 @@ exports.getClassType = async function (query, page, limit) {
 exports.createClassType = async function (classType) {
     // Creating a new Mongoose Object by using the new
 
-    var newClassType = new Student({
+    var newClassType = new ClassType({
         value: classType.value,
         label: classType.label,
     })

@@ -1,12 +1,12 @@
 // Gettign the Newly created Mongoose Model we just created 
-var Student = require('../../models/Comments/Comment.model');
+var Comment = require('../../models/Comments/Comment.model');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 
 // Saving the context of this module inside the _the variable
 _this = this
 
-// Async function to get the student  List
+// Async function to get the Comment  List
 exports.getComments = async function (query, page, limit) {
 
     // Options setup for the mongoose paginate
@@ -17,7 +17,7 @@ exports.getComments = async function (query, page, limit) {
     // Try Catch the awaited promise to handle the error 
     try {
         console.log("Query",query)
-        var Comments = await Student.paginate(query, options)
+        var Comments = await Comment.paginate(query, options)
         // Return the Comments list that was retured by the mongoose promise
         return Comments;
 
@@ -30,13 +30,12 @@ exports.getComments = async function (query, page, limit) {
 
 exports.createComment = async function (comment) {
     // Creating a new Mongoose Object by using the new keyword
-    var hashedPassword = bcrypt.hashSync(Comment.password, 8);
-    
+    var hashedPassword = bcrypt.hashSync(comment.key, 8);
+
     var newComment = new Comment({
-        name: comment.name,
-        email: comment.email,
-        date: new Date(),
-        password: hashedPassword
+        key: comment.key,
+        autor: comment.autor,
+        descripcion: comment.descripcion
     })
 
     try {

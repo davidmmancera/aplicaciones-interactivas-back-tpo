@@ -32,7 +32,7 @@ exports.createTeacher = async function (teacher) {
     // Creating a new Mongoose Object by using the new keyword
     var hashedPassword = bcrypt.hashSync(Teacher.password, 8);
     
-    var newTeacher = new Teachers({
+    var newTeacher = new Teacher({
         name: teacher.name,
         email: teacher.email,
         date: new Date(),
