@@ -30,7 +30,7 @@ exports.getTeachers = async function (query, page, limit) {
 
 exports.createTeacher = async function (teacher) {
     // Creating a new Mongoose Object by using the new keyword
-    var hashedPassword = bcrypt.hashSync(Teacher.password, 8);
+    var hashedPassword = bcrypt.hashSync(teacher.password, 8);
     
     var newTeacher = new Teacher({
         name: teacher.name,
@@ -70,9 +70,9 @@ exports.updateTeacher = async function (teacher) {
         return false;
     }
     //Edit the Teacher Object
-    var hashedPassword = bcrypt.hashSync(Teacher.password, 8);
-    oldTeacher.name = Teacher.name
-    oldTeacher.email = Teacher.email
+    var hashedPassword = bcrypt.hashSync(teacher.password, 8);
+    oldTeacher.name = teacher.name
+    oldTeacher.email = teacher.email
     oldTeacher.password = hashedPassword
     try {
         var savedTeacher = await oldTeacher.save()
