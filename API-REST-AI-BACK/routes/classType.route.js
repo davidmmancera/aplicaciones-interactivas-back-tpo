@@ -4,7 +4,7 @@ const ClassTypeController = require('../controllers/others/classType.controller'
 
 // Authorize each API with middleware and map to the Controller Functions
 /* GET classType listing. */
-router.get('/test', function(req, res) {
+router.get('/testClassType', function(req, res) {
     res.send('Llegaste a la ruta de classType');
   });
 router.get('/',Authorization, ClassTypeController.getClassType);

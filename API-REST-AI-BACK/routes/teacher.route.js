@@ -6,7 +6,7 @@ const Authorization = require('../auth/authorization');
 
 // Authorize each API with middleware and map to the Controller Functions
 /* GET teacher listing. */
-router.get('/test', function(req, res) {
+router.get('/testTeacher', function(req, res) {
     res.send('Llegaste a la ruta de teacher');
   });
 router.post('/registration', TeacherController.createTeacher);

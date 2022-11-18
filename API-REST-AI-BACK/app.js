@@ -9,8 +9,18 @@ const cors = require('cors');
 //importo router
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/user.route'); //Custom
-const apiTeacherRouter = require('./routes/teacher.route');
+
+const apiClassTypeRouter = require('./routes/classType.route');
+const apiCommentsRouter = require('./routes/comments.route');
+const apiFrequencyRouter = require('./routes/frequency.route');
+const apiHiringRouter = require('./routes/hiring.route');
+const apiQualificationRouter = require('./routes/qualification.route');
 const apiStudentRouter = require('./routes/student.route');
+const apiStudentClassesRouter = require('./routes/studentClasses.route');
+const apiStudiesRouter = require('./routes/studies.route');
+const apiTeacherRouter = require('./routes/teacher.route');
+const apiTeacherClassesRouter = require('./routes/teacherClasses.route');
+
 const utilRouter = require('./routes/utils');
 
 //instancio el servidor
@@ -32,8 +42,16 @@ app.use('/users', apiRouter);
 app.use('/', indexRouter);
 app.use('/utils/',utilRouter);
 
-app.use('/teacher', apiTeacherRouter);
+app.use('/classType', apiClassTypeRouter);
+app.use('/comments', apiCommentsRouter);
+app.use('/frequency', apiFrequencyRouter);
+app.use('/hiring', apiHiringRouter);
+app.use('/qualification', apiQualificationRouter);
 app.use('/student', apiStudentRouter);
+app.use('/studentClasses', apiStudentClassesRouter);
+app.use('/studies', apiStudiesRouter);
+app.use('/teacher', apiTeacherRouter);
+app.use('/teacherClasses', apiTeacherClassesRouter);
 
 //onsole.log("processENV", process.env);
 if (process.env.NODE_ENV === 'Development') {

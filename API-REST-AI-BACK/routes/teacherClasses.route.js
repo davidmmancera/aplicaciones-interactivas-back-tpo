@@ -4,7 +4,7 @@ const TeacherClassesController = require('../controllers/Teachers/classes.contro
 
 // Authorize each API with middleware and map to the Controller Functions
 /* GET teachers classes listing. */
-router.get('/test', function(req, res) {
+router.get('/testTeachersClasses', function(req, res) {
     res.send('Llegaste a la ruta de teachers classes');
   });
 router.post('/create', TeacherClassesController.createClass);

@@ -4,7 +4,7 @@ const QualificationController = require('../controllers/others/qualification.con
 
 // Authorize each API with middleware and map to the Controller Functions
 /* GET qualification listing. */
-router.get('/test', function(req, res) {
+router.get('/testQualification', function(req, res) {
     res.send('Llegaste a la ruta de qualification');
   });
 router.get('/',Authorization, QualificationController.getQualification);

@@ -4,7 +4,7 @@ const StudiesController = require('../controllers/Studies/studies.controller');
 
 // Authorize each API with middleware and map to the Controller Functions
 /* GET studies listing. */
-router.get('/test', function(req, res) {
+router.get('/testStudies', function(req, res) {
     res.send('Llegaste a la ruta de studies');
   });
 router.post('/create', StudiesController.createStudies);
