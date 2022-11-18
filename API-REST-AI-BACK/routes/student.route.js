@@ -4,17 +4,17 @@ const StudentController = require('../controllers/Students/student.controller');
 const UploadController = require('../controllers/upload.controller');
 const MailController = require('../controllers/Users/mail.controller');
 const Authorization = require('../auth/authorization');
-const UserController = require("../services/Users/user.service");
 
 // Authorize each API with middleware and map to the Controller Functions
-/* GET users listing. */
+/* GET student listing. */
 router.get('/test', function(req, res) {
-    res.send('Llegaste a la ruta de users');
+    res.send('Llegaste a la ruta de student');
   });
-router.post('/registration', UserController.createUser)
-router.post('/login/', UserController.loginUser)
-router.get('/',Authorization, UserController.getUsers)
-router.put('/', Authorization, UserController.updateUser)
+router.post('/registration', StudentController.createStudent);
+router.post('/login/', StudentController.loginStudent);
+router.get('/',Authorization, StudentController.getStudents);
+router.put('/', Authorization, StudentController.updateStudent);
+router.delete('/', Authorization, StudentController.removeStudent);
 router.post('/uploadImg',UploadController.uploadFilesImgUser);
 router.post('/sendMail',MailController.sendEmail)
 
