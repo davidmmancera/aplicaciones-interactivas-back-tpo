@@ -22,8 +22,10 @@ exports.getClass = async function (req, res, next) {
 exports.createClass = async function (req, res) {
     // Req.Body contains the form submit values.
     console.log("Llegue al controller",req.body)
+    let key = Math.floor(Math.random() * 2147483647)
+    console.log(key)
     var cls = {        
-        key: req.body.key,
+        key: key,
         nombre: req.body.nombre,
         materia: req.body.materia,
         duracion: req.body.duracion,
