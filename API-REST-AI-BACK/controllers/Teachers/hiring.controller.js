@@ -23,7 +23,7 @@ exports.createHiring = async function (req, res) {
     // Req.Body contains the form submit values.
     console.log("Llegue al controller",req.body)
     var hiring = {        
-        key: req.body.key,
+        key: Math.floor(Math.random() * 2147483647),
         nombre: req.body.nombre,
         alumno: req.body.alumno,
         estado: req.body.estado

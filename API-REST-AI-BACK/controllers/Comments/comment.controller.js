@@ -23,7 +23,7 @@ exports.createComments = async function (req, res) {
     // Req.Body contains the form submit values.
     console.log("llegue al controller", req.body)
     var Comment = {
-        key: req.body.key,
+        key: Math.floor(Math.random() * 2147483647),
         autor: req.body.autor,
         descripcion: req.body.descripcion,
     }

@@ -23,7 +23,6 @@ exports.createClass = async function (req, res) {
     // Req.Body contains the form submit values.
     console.log("Llegue al controller",req.body)
     let key = Math.floor(Math.random() * 2147483647)
-    console.log(key)
     var cls = {        
         key: key,
         nombre: req.body.nombre,
