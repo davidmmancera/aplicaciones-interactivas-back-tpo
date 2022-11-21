@@ -44,13 +44,13 @@ exports.createClass = async function (req, res) {
 exports.updateClass = async function (req, res, next) {
 
     // Id is necessary for the update
-    if (!req.body.label) {
+    if (!req.body.key) {
         return res.status(400).json({status: 400., message: "Label be present"})
     }
 
     
     var cls = {       
-        key: req.body.value ? req.body.value : null,
+        key: req.body.key ? req.body.key : null,
         nombre: req.body.nombre ? req.body.nombre : null,
         materia: req.body.materia ? req.body.materia : null,
         duracion: req.body.duracion ? req.body.duracion : null,
@@ -67,7 +67,8 @@ exports.updateClass = async function (req, res, next) {
 
 exports.removeClass = async function (req, res, next) {
 
-    var id = req.params.value;
+    var id = req.body.key;
+    console.log(id)
     try {
         var deleted = await ClassService.deleteClass(id);
         res.status(200).send("Succesfully Deleted... ");

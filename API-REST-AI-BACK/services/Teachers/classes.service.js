@@ -66,15 +66,16 @@ exports.updateClass = async function (cls) {
         throw Error("Error occured while Finding the Student")
     }
     // If no old Student Object exists return false
-    if (!oldStudent) {
+    console.log(oldClass)
+    if (!oldClass) {
         return false;
     }
 
-    oldClass.key = cls.key,
-    oldClass.nombre = cls.nombre,
-    oldClass.materia = cls.materia,
-    oldClass.duracion = cls.duracion,
-    oldClass.frecuencia = cls.frecuencia,
+    oldClass.key = cls.key
+    oldClass.nombre = cls.nombre
+    oldClass.materia = cls.materia
+    oldClass.duracion = cls.duracion
+    oldClass.frecuencia = cls.frecuencia
     oldClass.costo = cls.costo
 
 
@@ -90,9 +91,7 @@ exports.deleteClass = async function (id) {
 
     // Delete the Class
     try {
-        var deleted = await Class.remove({
-            _id: id
-        })
+        var deleted = await Class.remove({key: id})
         if (deleted.n === 0 && deleted.ok === 1) {
             throw Error("Class Could not be deleted")
         }

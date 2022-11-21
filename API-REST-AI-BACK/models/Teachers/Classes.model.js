@@ -4,11 +4,11 @@ var mongoosePaginate = require('mongoose-paginate')
 
 var ClassSchema = new mongoose.Schema({
     key: Number,
-    nombre: Number,
+    nombre: String,
     materia: String,
-    duracion: String,
-    frecuencia: Number,
-    costo: String,
+    duracion: Number,
+    frecuencia: String,
+    costo: Number,
 })
 
 ClassSchema.plugin(mongoosePaginate)
