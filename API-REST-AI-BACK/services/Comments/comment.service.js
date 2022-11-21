@@ -85,7 +85,7 @@ exports.deleteComment = async function (id) {
     // Delete the Comment
     try {
         var deleted = await Comment.remove({
-            _id: id
+            key: id
         })
         if (deleted.n === 0 && deleted.ok === 1) {
             throw Error("Comment Could not be deleted")

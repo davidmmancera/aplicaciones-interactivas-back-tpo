@@ -62,7 +62,7 @@ exports.updateComment = async function (req, res, next) {
 
 exports.removeComment = async function (req, res, next) {
 
-    var id = req.params.key;
+    var id = req.body.key;
     try {
         var deleted = await CommentService.deleteComment(id);
         res.status(200).send("Succesfully Deleted... ");
