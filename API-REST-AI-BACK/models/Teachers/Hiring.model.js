@@ -4,7 +4,7 @@ var mongoosePaginate = require('mongoose-paginate')
 
 var HiringSchema = new mongoose.Schema({
     key: Number,
-    nombre: Number,
+    nombre: String,
     alumno: String,
     estado: String
 });

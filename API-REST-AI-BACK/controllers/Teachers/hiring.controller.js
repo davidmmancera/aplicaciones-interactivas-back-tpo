@@ -28,6 +28,8 @@ exports.createHiring = async function (req, res) {
         alumno: req.body.alumno,
         estado: req.body.estado
     }
+    console.log(req)
+    console.log(hiring)
     try {
         // Calling the Service function with the new object from the Request Body
         var createdHiring = await HiringService.createHiring(hiring)
@@ -63,7 +65,7 @@ exports.updateHiring = async function (req, res, next) {
 
 exports.removeHiring = async function (req, res, next) {
 
-    var id = req.params.key;
+    var id = req.body.key;
     try {
         var deleted = await HiringService.deleteHiring(id);
         res.status(200).send("Succesfully Deleted... ");

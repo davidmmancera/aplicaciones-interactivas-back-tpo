@@ -33,7 +33,7 @@ exports.createHiring = async function (hiring) {
     var newHiring = new Hiring({
         key: hiring.key,
         nombre: hiring.nombre,
-        alumno: chiringls.alumno,
+        alumno: hiring.alumno,
         estado: hiring.estado
     })
 
@@ -88,9 +88,7 @@ exports.deleteHiring = async function (id) {
 
     // Delete the Hiring
     try {
-        var deleted = await Hiring.remove({
-            _id: id
-        })
+        var deleted = await Hiring.remove({key: id})
         if (deleted.n === 0 && deleted.ok === 1) {
             throw Error("Hiring Could not be deleted")
         }
