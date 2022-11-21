@@ -28,7 +28,7 @@ exports.createQualification = async function (req, res) {
     }
     try {
         // Calling the Service function with the new object from the Request Body
-        var createdQualification = await QualificationService.createFrequency(Qualification)
+        var createdQualification = await QualificationService.createQualification(Qualification)
         return res.status(201).json({createdQualification, message: "Succesfully Created Qualification"})
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
