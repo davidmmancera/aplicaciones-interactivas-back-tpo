@@ -70,10 +70,9 @@ exports.updateClass = async function (req, res, next) {
     if (!req.body.label) {
         return res.status(400).json({status: 400., message: "Label be present"})
     }
-
     
     var cls = {       
-        key: req.body.value ? req.body.value : null,
+        key: req.body.key ? req.body.key : null,
         materiaId: req.body.materiaId ? req.body.materiaId : null,
         materiaNombre: req.body.materiaNombre ? req.body.materiaNombre : null,
         materiaDescription: req.body.materiaDescription ? req.body.materiaDescription : null,
@@ -102,6 +101,27 @@ exports.removeClass = async function (req, res, next) {
         res.status(200).send("Succesfully Deleted... ");
     } catch (e) {
         return res.status(400).json({status: 400, message: e.message})
+    }
+}
+
+
+exports.qualifyClass = async function (req, res, next) {
+
+     // Id is necessary for the update
+     if (!req.body.label) {
+        return res.status(400).json({status: 400., message: "Label be present"})
+    }
+    
+    var qualify = {       
+        keyClass: req.body.keyClass ? req.body.keyClass : null,
+        qualify: req.body.qualify ? req.body.qualify : null
+    }
+
+    try {
+        var updatedClass = await ClassService.qualifyClass(qualify)
+        return res.status(200).json({status: 200, data: updatedClass, message: "Succesfully Updated Class"})
+    } catch (e) {
+        return res.status(400).json({status: 400., message: e.message})
     }
 }
 

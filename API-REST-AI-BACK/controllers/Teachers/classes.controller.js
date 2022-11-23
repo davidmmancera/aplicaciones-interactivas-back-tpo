@@ -66,7 +66,6 @@ exports.updateClass = async function (req, res, next) {
     if (!req.body.key) {
         return res.status(400).json({status: 400., message: "Label be present"})
     }
-
     
     var cls = {       
         key: req.body.key ? req.body.key : null,
@@ -94,6 +93,54 @@ exports.removeClass = async function (req, res, next) {
         res.status(200).send("Succesfully Deleted... ");
     } catch (e) {
         return res.status(400).json({status: 400, message: e.message})
+    }
+}
+
+exports.pauseClass = async function (req, res, next) {
+
+    // Id is necessary for the update
+    if (!req.body.key) {
+        return res.status(400).json({status: 400., message: "Label be present"})
+    }
+    
+    var cls = {       
+        key: req.body.key ? req.body.key : null,
+        nombre: req.body.nombre ? req.body.nombre : null,
+        materia: req.body.materia ? req.body.materia : null,
+        duracion: req.body.duracion ? req.body.duracion : null,
+        frecuencia: req.body.frecuencia ? req.body.frecuencia : null,
+        costo: req.body.costo ? req.body.costo : null,
+        activo: 0, //AQUI SE PAUSA LA CLASE
+    }
+    try {
+        var updatedClass = await ClassService.updateClass(cls)
+        return res.status(200).json({status: 200, data: updatedClass, message: "Succesfully Updated Class"})
+    } catch (e) {
+        return res.status(400).json({status: 400., message: e.message})
+    }
+}
+
+exports.activeClass = async function (req, res, next) {
+
+    // Id is necessary for the update
+    if (!req.body.key) {
+        return res.status(400).json({status: 400., message: "Label be present"})
+    }
+    
+    var cls = {       
+        key: req.body.key ? req.body.key : null,
+        nombre: req.body.nombre ? req.body.nombre : null,
+        materia: req.body.materia ? req.body.materia : null,
+        duracion: req.body.duracion ? req.body.duracion : null,
+        frecuencia: req.body.frecuencia ? req.body.frecuencia : null,
+        costo: req.body.costo ? req.body.costo : null,
+        activo: 1, //AQUI SE ACTIVA LA CLASE
+    }
+    try {
+        var updatedClass = await ClassService.updateClass(cls)
+        return res.status(200).json({status: 200, data: updatedClass, message: "Succesfully Updated Class"})
+    } catch (e) {
+        return res.status(400).json({status: 400., message: e.message})
     }
 }
 

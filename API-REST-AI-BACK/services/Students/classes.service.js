@@ -1,5 +1,6 @@
 // Gettign the Newly created Mongoose Model we just created 
 var Class = require('../../models/Students/classes.model');
+var Qualification = require('../../models/others/Qualifications.model');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 
@@ -83,7 +84,7 @@ exports.createClass = async function (cls) {
 
 exports.updateClass = async function (cls) {
     
-    var id = {key :cls.key}
+    var id = {value :cls.value}
 
     try {
         //Find the old Student Object by the Id
@@ -108,6 +109,30 @@ exports.updateClass = async function (cls) {
     oldClass.calificacion = cls.calificacion,
     oldClass.costo = cls.costo,
     oldClass.activo = cls.activo
+
+    try {
+        var savedClass = await oldClass.save()
+        return savedClass;
+    } catch (e) {
+        throw Error("And Error occured while updating the Class");
+    }
+}
+
+exports.qualifyClass = async function (qualify) {
+    
+    try {
+        //Find the old Student Object by the Id
+        var oldClass = await Class.findOne(id);
+    } catch (e) {
+        throw Error("Error occured while Finding the Student")
+    }
+    // If no old Student Object exists return false
+    if (!oldStudent) {
+        return false;
+    }
+
+    oldClass.key = qualify.keyClass,
+    oldClass.calificacion = qualify.qualify
 
     try {
         var savedClass = await oldClass.save()

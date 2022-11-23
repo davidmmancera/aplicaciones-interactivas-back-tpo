@@ -9,6 +9,7 @@ router.get('/testTeachersClasses', function(req, res) {
   });
 router.post('/create', TeacherClassesController.createClass);
 router.get('/',Authorization, TeacherClassesController.getClass);
+router.get('/{id}',Authorization, TeacherClassesController.getClassById);
 router.put('/', Authorization, TeacherClassesController.updateClass);
 router.delete('/', Authorization, TeacherClassesController.removeClass);
 

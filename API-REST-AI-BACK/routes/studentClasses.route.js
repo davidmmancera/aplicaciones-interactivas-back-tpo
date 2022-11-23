@@ -9,7 +9,9 @@ router.get('/testStudentsClasses', function(req, res) {
   });
 router.post('/create', StudentClassesController.createClass);
 router.get('/',Authorization, StudentClassesController.getClass);
+router.get('/{id}',Authorization, StudentClassesController.getClassById);
 router.put('/', Authorization, StudentClassesController.updateClass);
+router.put('/', Authorization, StudentClassesController.qualifyClass);
 router.delete('/', Authorization, StudentClassesController.removeClass);
 
 
