@@ -14,6 +14,7 @@ var ClassSchema = new mongoose.Schema({
     calificacionId: Number,
     calificacion: String,
     costo: String,
+    activo: Boolean
 })
 
 ClassSchema.plugin(mongoosePaginate)

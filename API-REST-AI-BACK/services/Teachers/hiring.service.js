@@ -34,6 +34,7 @@ exports.createHiring = async function (hiring) {
         key: hiring.key,
         nombre: hiring.nombre,
         alumno: hiring.alumno,
+        email: hiring.email,
         estado: hiring.estado
     })
 
@@ -70,10 +71,9 @@ exports.updateHiring = async function (hiring) {
 
     oldHiring.key = hiring.key,
     oldHiring.nombre = hiring.nombre,
-    oldHiring.materia = hiring.materia,
-    oldHiring.duracion = hiring.duracion,
-    oldCloldHiringass.frecuencia = hiring.frecuencia,
-    oldHiring.costo = hiring.costo
+    oldHiring.alumno = hiring.alumno,
+    oldHiring.email = hiring.email,
+    oldHiring.estado = hiring.estado
 
 
     try {

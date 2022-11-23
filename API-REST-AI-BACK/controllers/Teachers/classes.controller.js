@@ -19,6 +19,23 @@ exports.getClass = async function (req, res, next) {
     }
 }
 
+exports.getClassById = async function (req, res, next) {
+
+    // Check the existence of the query parameters, If doesn't exists assign a default value
+    var page = req.query.page ? req.query.page : 1
+    var limit = req.query.limit ? req.query.limit : 1;
+    let filtro = {key: req.body.key};
+
+    try {
+        var cls = await ClassService.getClassById(filtro, page, limit)
+        // Return the Classes list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({status: 200, data: cls, message: "Succesfully Class Recieved"});
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(400).json({status: 400, message: e.message});
+    }
+}
+
 exports.createClass = async function (req, res) {
     // Req.Body contains the form submit values.
     console.log("Llegue al controller",req.body)
@@ -29,7 +46,8 @@ exports.createClass = async function (req, res) {
         materia: req.body.materia,
         duracion: req.body.duracion,
         frecuencia: req.body.frecuencia,
-        costo: req.body.costo
+        costo: req.body.costo,
+        activo: req.body.activo
     }
     try {
         // Calling the Service function with the new object from the Request Body
@@ -56,7 +74,8 @@ exports.updateClass = async function (req, res, next) {
         materia: req.body.materia ? req.body.materia : null,
         duracion: req.body.duracion ? req.body.duracion : null,
         frecuencia: req.body.frecuencia ? req.body.frecuencia : null,
-        costo: req.body.costo ? req.body.costo : null
+        costo: req.body.costo ? req.body.costo : null,
+        activo: req.body.activo ? req.body.activo : 0,
     }
     try {
         var updatedClass = await ClassService.updateClass(cls)

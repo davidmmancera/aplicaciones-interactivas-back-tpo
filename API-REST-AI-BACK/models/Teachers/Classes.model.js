@@ -9,6 +9,7 @@ var ClassSchema = new mongoose.Schema({
     duracion: Number,
     frecuencia: String,
     costo: Number,
+    activo: Boolean,
 })
 
 ClassSchema.plugin(mongoosePaginate)

@@ -26,6 +26,7 @@ exports.createHiring = async function (req, res) {
         key: Math.floor(Math.random() * 2147483647),
         nombre: req.body.nombre,
         alumno: req.body.alumno,
+        email: req.body.email,
         estado: req.body.estado
     }
     console.log(req)
@@ -53,6 +54,7 @@ exports.updateHiring = async function (req, res, next) {
         key: req.body.value ? req.body.value : null,
         nombre: req.body.nombre ? req.body.nombre : null,
         alumno: req.body.alumno ? req.body.alumno : null,
+        email: req.body.email ? req.body.email : null,
         estado: req.body.estado ? req.body.estado : null    
     }
     try {

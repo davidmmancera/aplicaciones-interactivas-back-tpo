@@ -6,7 +6,8 @@ var HiringSchema = new mongoose.Schema({
     key: Number,
     nombre: String,
     alumno: String,
-    estado: String
+    email: String,
+    estado: String    
 });
 
 HiringSchema.plugin(mongoosePaginate)
