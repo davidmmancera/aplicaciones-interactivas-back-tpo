@@ -49,6 +49,26 @@ exports.getClassById = async function (query, page, limit) {
     }
 }
 
+exports.getClasByFilter = async function (query, page, limit) {
+    // Options setup for the mongoose paginate
+    var options = {
+        page,
+        limit
+    }
+    // Try Catch the awaited promise to handle the error 
+    try {
+        console.log("Query",query)
+        var Classes = await Class.paginate(query, options)
+        // Return the students list that was retured by the mongoose promise
+        return Classes;
+
+    } catch (e) {
+        // return a Error message describing the reason 
+        console.log("error services",e)
+        throw Error('Error while Paginating Classes');
+    }
+}
+
 exports.createClass = async function (cls) {
     
     var newClass = new Class({

@@ -8,12 +8,12 @@ router.get('/testStudentsClasses', function(req, res) {
     res.send('Llegaste a la ruta de Students classes');
   });
 router.post('/create', StudentClassesController.createClass);
-router.get('/',Authorization, StudentClassesController.getClass);
-router.get('/{id}',Authorization, StudentClassesController.getClassById);
+router.get('/', Authorization, StudentClassesController.getClass);
+router.get('/{id}', Authorization, StudentClassesController.getClassById);
+router.get('/byFilter', Authorization, StudentClassesController.getClasByFilter);
 router.put('/', Authorization, StudentClassesController.updateClass);
 router.put('/', Authorization, StudentClassesController.qualifyClass);
 router.delete('/', Authorization, StudentClassesController.removeClass);
-
 
 // Export the Router
 module.exports = router;
