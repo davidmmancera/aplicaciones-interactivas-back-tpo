@@ -9,6 +9,9 @@ var ClassCommentSchema = new mongoose.Schema({
     estado: Boolean
 })
 
+// ESTADO = 0 --> PENDIENTES DE APROBACION
+// ESTADO = 1 --> ACEPTADOS
+
 ClassCommentSchema.plugin(mongoosePaginate)
 const ClassCommentTeacher = mongoose.model('ClassCommentTch', ClassCommentSchema)
 
