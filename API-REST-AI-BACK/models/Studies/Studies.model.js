@@ -4,8 +4,7 @@ var mongoosePaginate = require('mongoose-paginate')
 
 var StudiesSchema = new mongoose.Schema({
     value: Number,
-    label: String,
-    description: String
+    label: String
 })
 
 StudiesSchema.plugin(mongoosePaginate)

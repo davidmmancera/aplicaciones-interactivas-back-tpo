@@ -30,8 +30,7 @@ exports.createStudies = async function (studies) {
 
     var newStudies = new Studies({
         value: studies.value,
-        label: studies.label,
-        description: studies.description
+        label: studies.label
     })
 
     try {
@@ -67,7 +66,6 @@ exports.updateStudies = async function (studies) {
     //Edit the Studies Object
     oldStudies.value = studies.value
     oldStudies.label = studies.label
-    oldStudies.description = studies.description
 
     try {
         var savedStudies = await oldStudies.save()

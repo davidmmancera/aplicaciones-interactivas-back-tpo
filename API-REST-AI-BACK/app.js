@@ -13,6 +13,7 @@ const apiRouter = require('./routes/user.route'); //Custom
 const apiClassTypeRouter = require('./routes/classType.route');
 const apiCommentsRouter = require('./routes/comments.route');
 const apiFrequencyRouter = require('./routes/frequency.route');
+const apiCourseRouter = require('./routes/course.route');
 const apiHiringRouter = require('./routes/hiring.route');
 const apiQualificationRouter = require('./routes/qualification.route');
 const apiStudentRouter = require('./routes/student.route');
@@ -46,6 +47,7 @@ app.use('/utils/',utilRouter);
 app.use('/classType', apiClassTypeRouter);
 app.use('/comments', apiCommentsRouter);
 app.use('/frequency', apiFrequencyRouter);
+app.use('/course', apiCourseRouter);
 app.use('/hiring', apiHiringRouter);
 app.use('/qualification', apiQualificationRouter);
 app.use('/student', apiStudentRouter);
