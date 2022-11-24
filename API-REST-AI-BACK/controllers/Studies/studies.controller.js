@@ -7,10 +7,11 @@ _this = this;
 exports.getStudies = async function (req, res, next) {
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
-    var page = req.query.page ? req.query.page : 1
-    var limit = req.query.limit ? req.query.limit : 10;
+    // var page = req.query.page ? req.query.page : 1
+    // var limit = req.query.limit ? req.query.limit : 10;
+    
     try {
-        var studies = await StudiesService.getStudies({}, page, limit)
+        var studies = await StudiesService.getStudies({})
         // Return the Frequencies list with the appropriate HTTP password Code and Message.
         return res.status(200).json({status: 200, data: studies, message: "Succesfully Studies Recieved"});
     } catch (e) {
@@ -25,6 +26,7 @@ exports.createStudies = async function (req, res) {
     var Studies = {
         value: req.body.value,
         label: req.body.label,
+        description: req.body.description,
     }
     try {
         // Calling the Service function with the new object from the Request Body
@@ -47,7 +49,8 @@ exports.updateStudies = async function (req, res, next) {
     
     var Studies = {       
         value: req.body.value ? req.body.value : null,
-        label: req.body.label ? req.body.label : null
+        label: req.body.label ? req.body.label : null,
+        description: req.body.description ? req.body.description : null
     }
     try {
         var updatedStudies = await StudiesService.updateStudies(Studies)

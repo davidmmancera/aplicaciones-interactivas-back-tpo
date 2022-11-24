@@ -22,11 +22,17 @@ exports.getComments = async function (req, res, next) {
 exports.createComments = async function (req, res) {
     // Req.Body contains the form submit values.
     console.log("llegue al controller", req.body)
+    // var Comment = {
+    //     key: Math.floor(Math.random() * 2147483647),
+    //     autor: req.body.autor,
+    //     descripcion: req.body.descripcion,
+    // }
+
+    //OBJETO SOLO CON EL DATO DEL COMENTARIO
     var Comment = {
-        key: Math.floor(Math.random() * 2147483647),
-        autor: req.body.autor,
         descripcion: req.body.descripcion,
     }
+
     try {
         // Calling the Service function with the new object from the Request Body
         var createdComment = await CommentService.createComment(Comment)

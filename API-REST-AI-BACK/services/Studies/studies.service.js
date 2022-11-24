@@ -7,17 +7,14 @@ var jwt = require('jsonwebtoken');
 _this = this
 
 // Async function to get the Studies  List
-exports.getStudies = async function (query, page, limit) {
+exports.getStudies = async function (query) {
 
-    // Options setup for the mongoose paginate
-    var options = {
-        page,
-        limit
-    }
+    // Options setup for the mongoose paginate   
     // Try Catch the awaited promise to handle the error 
+    
     try {
         console.log("Query",query)
-        var studies = await Studies.paginate(query, options)
+        var studies = await Studies.paginate(query)
         // Return the students list that was retured by the mongoose promise
         return studies;
 
@@ -34,6 +31,7 @@ exports.createStudies = async function (studies) {
     var newStudies = new Studies({
         value: studies.value,
         label: studies.label,
+        description: studies.description
     })
 
     try {
@@ -69,6 +67,8 @@ exports.updateStudies = async function (studies) {
     //Edit the Studies Object
     oldStudies.value = studies.value
     oldStudies.label = studies.label
+    oldStudies.description = studies.description
+
     try {
         var savedStudies = await oldStudies.save()
         return savedStudies;
