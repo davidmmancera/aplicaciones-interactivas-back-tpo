@@ -19,6 +19,22 @@ exports.getClassComment = async function (req, res, next) {
     }
 }
 
+exports.getAcceptedComment = async function (req, res) {
+
+    // Check the existence of the query parameters, If doesn't exists assign a default value
+    var page = req.query.page ? req.query.page : 1
+    var limit = req.query.limit ? req.query.limit : 10;
+    let filtro= {estado: 1} //ACEPTADOS
+    try {
+        var Students = await ClassCommentService.getClassComment(filtro, page, limit)
+        // Return the Students list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({status: 200, data: Students, message: "Succesfully Students Recieved"});
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(400).json({status: 400, message: e.message});
+    }
+}
+
 exports.createClassComment = async function (req, res) {
     // Req.Body contains the form submit values.
     console.log("Llegue al controller",req.body)

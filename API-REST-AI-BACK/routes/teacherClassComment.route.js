@@ -9,6 +9,7 @@ router.get('/testTeacherClassComment', function(req, res) {
   });
 router.post('/create', TeacherClassCommentController.createClassComment);
 router.get('/', Authorization, TeacherClassCommentController.getClassComment);
+router.get('/acceptedComment', Authorization, TeacherClassCommentController.getAcceptedComment);
 router.put('/', Authorization, TeacherClassCommentController.updateClassComment);
 router.delete('/', Authorization, TeacherClassCommentController.removeClassComment);
 
