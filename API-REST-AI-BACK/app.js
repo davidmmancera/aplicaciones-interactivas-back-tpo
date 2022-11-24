@@ -22,6 +22,7 @@ const apiStudentClassCommentRouter = require('./routes/studentClassComment.route
 const apiStudiesRouter = require('./routes/studies.route');
 const apiTeacherRouter = require('./routes/teacher.route');
 const apiTeacherClassesRouter = require('./routes/teacherClasses.route');
+const apiTeacherClassCommentRouter = require('./routes/teacherClassComment.route');
 
 const utilRouter = require('./routes/utils');
 
@@ -53,6 +54,7 @@ app.use('/qualification', apiQualificationRouter);
 app.use('/student', apiStudentRouter);
 app.use('/studentClasses', apiStudentClassesRouter);
 app.use('/studentClassComment', apiStudentClassCommentRouter);
+app.use('/teacherClassComment', apiTeacherClassCommentRouter);
 app.use('/studies', apiStudiesRouter);
 app.use('/teacher', apiTeacherRouter);
 app.use('/teacherClasses', apiTeacherClassesRouter);
