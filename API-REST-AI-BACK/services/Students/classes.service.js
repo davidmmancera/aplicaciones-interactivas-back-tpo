@@ -140,19 +140,22 @@ exports.updateClass = async function (cls) {
 
 exports.qualifyClass = async function (qualify) {
     
+    var id = {key : qualify.key}
+
     try {
         //Find the old Student Object by the Id
         var oldClass = await Class.findOne(id);
     } catch (e) {
-        throw Error("Error occured while Finding the Student")
+        throw Error("Error occured while Finding the class")
     }
     // If no old Student Object exists return false
     if (!oldStudent) {
         return false;
     }
 
-    oldClass.key = qualify.keyClass,
-    oldClass.calificacion = qualify.qualify
+    oldClass.key = qualify.key;
+    oldClass.calificacionId = qualify.calificacionId;
+    oldClass.calificacion = qualify.calificacion
 
     try {
         var savedClass = await oldClass.save()

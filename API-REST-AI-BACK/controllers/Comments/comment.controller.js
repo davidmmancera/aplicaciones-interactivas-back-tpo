@@ -19,7 +19,7 @@ exports.getComments = async function (req, res, next) {
     }
 }
 
-exports.getCommentsForClass = async function (req, res, next) {
+exports.getCommentsForClass = async function (req, res) {
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
     var page = req.query.page ? req.query.page : 1
@@ -46,7 +46,7 @@ exports.createComments = async function (req, res) {
 
     //OBJETO SOLO CON EL DATO DEL COMENTARIO
     var Comment = {
-        descripcion: req.body.descripcion,
+        descripcion: req.body.comment,
     }
 
     try {
