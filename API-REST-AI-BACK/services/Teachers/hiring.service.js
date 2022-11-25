@@ -2,29 +2,23 @@
 var Hiring = require('../../models/Teachers/hiring.model');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
+const User = require("../../models/Users/User.model");
 
 // Saving the context of this module inside the _the variable
 _this = this
 
 // Async function to get the student  List
-exports.getHiring = async function (query, page, limit) {
-
-    // Options setup for the mongoose paginate
-    var options = {
-        page,
-        limit
-    }
+exports.getHiring = async function (query) {
     // Try Catch the awaited promise to handle the error 
     try {
-        console.log("Query",query)
-        var hiring = await Hiring.paginate(query, options)
         // Return the students list that was retured by the mongoose promise
-        return hiring;
-
+        const id = jwt.decode(query.token, {complete: true});
+        const user = await User.findOne({_id: id.payload.id});
+        return await Hiring.find({profesorKey: user.key});
     } catch (e) {
         // return a Error message describing the reason 
         console.log("error services",e)
-        throw Error('Error while Paginating hiring');
+        throw Error(e);
     }
 }
 
@@ -32,12 +26,14 @@ exports.createHiring = async function (hiring) {
     
     var newHiring = new Hiring({
         key: hiring.key,
+        profesorKey: hiring.profesorKey,
         classKey: hiring.classKey,
         nombre: hiring.nombre,
         alumno: hiring.alumno,
         email: hiring.email,
         telefono: hiring.telefono,
         horaContacto: hiring.horaContacto,
+        comentario: hiring.comentario,
         estado: hiring.estado
     })
 

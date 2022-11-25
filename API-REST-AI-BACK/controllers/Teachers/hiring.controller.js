@@ -5,14 +5,12 @@ _this = this;
 
 // Async Controller function to get the To do List
 exports.getHiring = async function (req, res, next) {
+    const query = {token: req.headers['x-access-token']};
 
-    // Check the existence of the query parameters, If doesn't exists assign a default value
-    var page = req.query.page ? req.query.page : 1
-    var limit = req.query.limit ? req.query.limit : 10;
     try {
-        var cls = await HiringService.getHiring({}, page, limit)
+        const cls = await HiringService.getHiring(query);
         // Return the Hiring list with the appropriate HTTP password Code and Message.
-        return res.status(200).json({status: 200, data: cls, message: "Succesfully Hiring Recieved"});
+        return res.status(200).json({status: 200, data: cls});
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         return res.status(400).json({status: 400, message: e.message});
@@ -24,16 +22,16 @@ exports.createHiring = async function (req, res) {
     console.log("Llegue al controller",req.body)
     var hiring = {        
         key: Math.floor(Math.random() * 2147483647),
+        profesorKey: req.body.profesorKey,
         classKey: req.body.classKey,
         nombre: req.body.nombre,
         alumno: req.body.alumno,
         email: req.body.email,
         telefono: req.body.telefono,
         horaContacto: req.body.horaContacto,
+        comentario: req.body.comentario,
         estado: 0
     }
-    console.log(req)
-    console.log(hiring)
     try {
         // Calling the Service function with the new object from the Request Body
         var createdHiring = await HiringService.createHiring(hiring)
