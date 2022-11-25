@@ -9,7 +9,6 @@ _this = this
 
 // Async function to get the student  List
 exports.getStudents = async function (query, page, limit) {
-debugger;
     // Options setup for the mongoose paginate
     var options = {
         page,
@@ -113,7 +112,6 @@ exports.deleteStudent = async function (id) {
 
 
 exports.loginStudent = async function (student) {
-    debugger;
     // Creating a new Mongoose Object by using the new keyword
     try {
         // Find the Student 

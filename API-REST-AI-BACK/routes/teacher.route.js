@@ -9,8 +9,6 @@ const Authorization = require('../auth/authorization');
 router.get('/testTeacher', function(req, res) {
     res.send('Llegaste a la ruta de teacher');
   });
-
-router.post('/login', TeacherController.loginTeacher);
 router.post('/registration', TeacherController.createTeacher);
 router.get('/',Authorization, TeacherController.getTeachers);
 router.put('/', Authorization, TeacherController.updateTeacher);
