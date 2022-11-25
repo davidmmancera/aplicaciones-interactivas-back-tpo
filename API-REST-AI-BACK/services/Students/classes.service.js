@@ -3,24 +3,20 @@ var Class = require('../../models/Students/classes.model');
 var Qualification = require('../../models/others/Qualifications.model');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
+const User = require("../../models/Users/User.model");
 
 // Saving the context of this module inside the _the variable
 _this = this
 
 // Async function to get the student  List
-exports.getClass = async function (query, page, limit) {
-
-    // Options setup for the mongoose paginate
-    var options = {
-        page,
-        limit
-    }
+exports.getClass = async function (query) {
     // Try Catch the awaited promise to handle the error 
     try {
         console.log("Query",query)
-        var Classes = await Class.paginate(query, options)
+        const id = jwt.decode(query.token, {complete: true});
+        const user = await User.findOne({_id: id.payload.id});
         // Return the students list that was retured by the mongoose promise
-        return Classes;
+        return await Class.find({studentKey: user.key});
 
     } catch (e) {
         // return a Error message describing the reason 
@@ -70,31 +66,16 @@ exports.getClasByFilter = async function (query, page, limit) {
 }
 
 exports.createClass = async function (cls) {
-    
     var newClass = new Class({
         key: cls.key,
-        materiaId: cls.materiaId,
-        materiaNombre: cls.materiaNombre,
-        materiaDescription: cls.materiaDescription,
-        tipoClaseId: cls.tipoClaseId,
-        tipoClaseDescripcion: cls.tipoClaseDescripcion,
-        frecuenciaId: cls.frecuenciaId,
-        frecuenciaDescripcion: cls.frecuenciaDescripcion,
-        calificacionId: cls.calificacionId,
-        calificacion: cls.calificacion,
-        costo: cls.costo,
-        activo: cls.activo
+        studentKey: cls.studentKey,
+        materia: cls.materia,
+        frecuencia: cls.frecuencia
     })
 
     try {
-        // Saving the class 
-        var savedClass = await newClass.save();
-        var token = jwt.sign({
-            id: savedClass._key
-        }, process.env.SECRET, {
-            expiresIn: 86400 // expires in 24 hours
-        });
-        return token;
+        // Saving the class
+        return await newClass.save();
     } catch (e) {
         // return a Error message describing the reason 
         console.log(e)    

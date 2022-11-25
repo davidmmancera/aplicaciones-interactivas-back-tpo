@@ -6,6 +6,7 @@ var HiringSchema = new mongoose.Schema({
     key: Number,
     profesorKey: Number,
     classKey: Number,
+    studentKey: Number,
     nombre: String,
     alumno: String,
     email: String,

@@ -19,6 +19,7 @@ exports.getHiring = async function (req, res, next) {
 
 exports.createHiring = async function (req, res) {
     // Req.Body contains the form submit values.
+    const query = {token: req.headers['x-access-token']};
     console.log("Llegue al controller",req.body)
     var hiring = {        
         key: Math.floor(Math.random() * 2147483647),
@@ -34,7 +35,7 @@ exports.createHiring = async function (req, res) {
     }
     try {
         // Calling the Service function with the new object from the Request Body
-        var createdHiring = await HiringService.createHiring(hiring)
+        var createdHiring = await HiringService.createHiring(query, hiring)
         return res.status(201).json({createdHiring, message: "Succesfully Created Hiring"})
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
@@ -69,6 +70,7 @@ exports.updateHiring = async function (req, res, next) {
 exports.approveHire = async function (req, res, next) {
     const clase = {
         key: req.body.key,
+        studentKey: req.body.studentKey,
         email: req.body.email,
         nombre: req.body.nombre
     };

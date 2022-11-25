@@ -5,12 +5,10 @@ _this = this;
 
 // Async Controller function to get the To do List
 exports.getClass = async function (req, res, next) {
+    const query = {token: req.headers['x-access-token']};
 
-    // Check the existence of the query parameters, If doesn't exists assign a default value
-    var page = req.query.page ? req.query.page : 1
-    var limit = req.query.limit ? req.query.limit : 10;
     try {
-        var cls = await ClassService.getClass({}, page, limit)
+        const cls = await ClassService.getClass(query);
         // Return the Classes list with the appropriate HTTP password Code and Message.
         return res.status(200).json({status: 200, data: cls, message: "Succesfully Class Recieved"});
     } catch (e) {
@@ -63,17 +61,9 @@ exports.createClass = async function (req, res) {
     console.log("Llegue al controller",req.body)
     var cls = {        
         key: Math.floor(Math.random() * 2147483647),
-        materiaId: req.body.materiaId,
-        materiaNombre: req.body.materiaNombre,
-        materiaDescription: req.body.materiaDescription,
-        tipoClaseId: req.body.tipoClaseId,
-        tipoClaseDescripcion: req.body.tipoClaseDescripcion,
-        frecuenciaId: req.body.frecuenciaId,
-        frecuenciaDescripcion: req.body.frecuenciaDescripcion,
-        calificacionId: req.body.calificacionId,
-        calificacion: req.body.calificacion,
-        costo: req.body.costo,
-        activo: req.body.activo
+        studentKey: req.body.studentKey,
+        materia: req.body.materia,
+        frecuencia: req.body.frecuencia
     }
     try {
         // Calling the Service function with the new object from the Request Body

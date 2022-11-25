@@ -3,6 +3,8 @@ var Hiring = require('../../models/Teachers/hiring.model');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 const User = require("../../models/Users/User.model");
+const TeacherClass = require('../../models/Teachers/classes.model');
+const Class = require('../../models/Students/classes.model');
 const nodemailer = require("nodemailer");
 
 // Saving the context of this module inside the _the variable
@@ -23,25 +25,26 @@ exports.getHiring = async function (query) {
     }
 }
 
-exports.createHiring = async function (hiring) {
-    
-    var newHiring = new Hiring({
-        key: hiring.key,
-        profesorKey: hiring.profesorKey,
-        classKey: hiring.classKey,
-        nombre: hiring.nombre,
-        alumno: hiring.alumno,
-        email: hiring.email,
-        telefono: hiring.telefono,
-        horaContacto: hiring.horaContacto,
-        comentario: hiring.comentario,
-        estado: hiring.estado
-    })
-
+exports.createHiring = async function (query, hiring) {
     try {
+        const id = jwt.decode(query.token, {complete: true});
+        const user = await User.findOne({_id: id.payload.id});
+        var newHiring = new Hiring({
+            key: hiring.key,
+            profesorKey: hiring.profesorKey,
+            classKey: hiring.classKey,
+            studentKey: user.key,
+            nombre: hiring.nombre,
+            alumno: hiring.alumno,
+            email: hiring.email,
+            telefono: hiring.telefono,
+            horaContacto: hiring.horaContacto,
+            comentario: hiring.comentario,
+            estado: hiring.estado
+        })
         // Saving the Hiring 
-        var savedHiring = await newHiring.save();
-        return savedHiring;
+
+        return await newHiring.save();
     } catch (e) {
         // return a Error message describing the reason 
         console.log(e)    
@@ -86,6 +89,18 @@ exports.approveHiring = async function (clase) {
         if (deleted.n === 0 && deleted.ok === 1) {
             throw Error("Hiring Could not be deleted")
         }
+        const classes = await TeacherClass.findOne({classKey: clase.classKey})
+        var newClass = new Class({
+            key: classes.key,
+            studentKey: clase.studentKey,
+            materia: classes.materia,
+            frecuencia: classes.frecuencia
+        })
+
+        var response = await newClass.save();
+        console.log("Save")
+        console.log(response)
+
         await sendEmailHiring({
             email: clase.email,
             nombre: clase.nombre,
