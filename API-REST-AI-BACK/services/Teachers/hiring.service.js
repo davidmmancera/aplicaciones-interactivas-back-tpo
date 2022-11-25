@@ -3,6 +3,7 @@ var Hiring = require('../../models/Teachers/hiring.model');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 const User = require("../../models/Users/User.model");
+const nodemailer = require("nodemailer");
 
 // Saving the context of this module inside the _the variable
 _this = this
@@ -78,16 +79,64 @@ exports.updateHiring = async function (hiring) {
     }
 }
 
-exports.deleteHiring = async function (id) {
-
+exports.approveHiring = async function (clase) {
     // Delete the Hiring
     try {
-        var deleted = await Hiring.remove({key: id})
+        const deleted = await Hiring.remove({key: clase.key});
         if (deleted.n === 0 && deleted.ok === 1) {
             throw Error("Hiring Could not be deleted")
         }
+        await sendEmailHiring({
+            email: clase.email,
+            nombre: clase.nombre,
+            estado: "Aprobado"
+        })
         return deleted;
     } catch (e) {
         throw Error("Error Occured while Deleting the Hiring")
     }
 }
+
+exports.deleteHiring = async function (clase) {
+    // Delete the Hiring
+    try {
+        const deleted = await Hiring.remove({key: clase.key});
+        if (deleted.n === 0 && deleted.ok === 1) {
+            throw Error("Hiring Could not be deleted")
+        }
+        await sendEmailHiring({
+            email: clase.email,
+            nombre: clase.nombre,
+            estado: "Rechazado"
+        })
+        return deleted;
+    } catch (e) {
+        throw Error("Error Occured while Deleting the Hiring")
+    }
+}
+
+sendEmailHiring = async function (hire){
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {user: 'userInstitular@gmail.com', pass: 'vbhhonlkashvaexw'}
+    });
+    const mailOptions = {
+        from: 'userinstitular@gmail.com',
+        to: hire.email,
+        subject: "Respuesta sobre contratación de curso",
+        html: '<div>' +
+            '<p>Hola:</p>\n' +
+            '<p>Su petición sobre el curso:  ' + hire.nombre + ' </p>\n' +
+            '<p>Es:  ' + hire.estado + '</p>\n' +
+            '<p>Si no solicitaste ningún curso, puedes ignorar este correo electrónico.</p>\n' +
+            '<p>Gracias.</p>\n' +
+            '<p>El equipo de Institular</p>' +
+            '</div>'
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+    } catch(error) {
+        throw Error("Mail not sent")
+    }
+};

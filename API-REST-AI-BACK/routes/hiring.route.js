@@ -10,6 +10,7 @@ router.get('/testHiring', function(req, res) {
 router.get('/',Authorization, HiringController.getHiring);
 router.post('/create', HiringController.createHiring);
 router.put('/', Authorization, HiringController.updateHiring);
+router.post('/approve',Authorization, HiringController.approveHire);
 router.delete('/', Authorization, HiringController.removeHiring);
 
 

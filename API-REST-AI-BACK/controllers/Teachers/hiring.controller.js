@@ -66,11 +66,28 @@ exports.updateHiring = async function (req, res, next) {
     }
 }
 
-exports.removeHiring = async function (req, res, next) {
-
-    var id = req.body.key;
+exports.approveHire = async function (req, res, next) {
+    const clase = {
+        key: req.body.key,
+        email: req.body.email,
+        nombre: req.body.nombre
+    };
     try {
-        var deleted = await HiringService.deleteHiring(id);
+        await HiringService.approveHiring(clase);
+        res.status(200).send("Succesfully Deleted... ");
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message})
+    }
+}
+
+exports.removeHiring = async function (req, res, next) {
+    const clase = {
+        key: req.body.key,
+        email: req.body.email,
+        nombre: req.body.nombre
+    };
+    try {
+        await HiringService.deleteHiring(clase);
         res.status(200).send("Succesfully Deleted... ");
     } catch (e) {
         return res.status(400).json({status: 400, message: e.message})
