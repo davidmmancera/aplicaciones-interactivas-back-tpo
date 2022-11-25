@@ -103,15 +103,12 @@ exports.loginUser = async function (user) {
 
     // Creating a new Mongoose Object by using the new keyword
     try {
-        // Find the User 
-        console.log("login:",user)
-        var _details = await User.findOne({
-            email: user.email
-        });
-        var passwordIsValid = bcrypt.compareSync(user.password, _details.password);
+        const _details = await User.findOne({email: user.email});
+        const passwordIsValid = bcrypt.compareSync(user.password, _details.password);
+
         if (!passwordIsValid) return 0;
 
-        var token = jwt.sign({
+        const token = jwt.sign({
             id: _details._id
         }, process.env.SECRET, {
             expiresIn: 86400 // expires in 24 hours

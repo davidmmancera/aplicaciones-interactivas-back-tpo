@@ -37,20 +37,25 @@ exports.getStudentsByMail = async function (req, res) {
 
 exports.createStudent = async function (req, res) {
     // Req.Body contains the form submit values.
-    console.log("Llegue al controller",req.body)
-    var Student = {
+    const Student = {
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password
-    }
+        password: req.body.password,
+        phone: req.body.phone,
+        birth: req.body.birth,
+        primary: req.body.primary,
+        secondary: req.body.secondary,
+        associate: req.body.associate,
+        bachelor: req.body.bachelor,
+    };
     try {
         // Calling the Service function with the new object from the Request Body
-        var createdStudent = await StudentService.createStudent(Student)
-        return res.status(201).json({createdStudent, message: "Succesfully Created Student"})
+        const createdStudent = await StudentService.createStudent(Student);
+        return res.status(201).json({createdStudent, message: "Student registration was successful"})
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         console.log(e)
-        return res.status(400).json({status: 400, message: "Student Creation was Unsuccesfull"})
+        return res.status(400).json({status: 400, message: "Student registration was unsuccessful"})
     }
 }
 

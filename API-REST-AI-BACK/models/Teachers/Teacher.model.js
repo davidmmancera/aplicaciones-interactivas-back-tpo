@@ -6,7 +6,10 @@ var TeacherSchema = new mongoose.Schema({
     name: String,
     email: String,
     password: String,
-    date: Date
+    date: Date,
+    phone: String,
+    title: String,
+    experience: String
 })
 
 TeacherSchema.plugin(mongoosePaginate)

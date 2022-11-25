@@ -2,6 +2,8 @@
 var Teacher = require('../../models/Teachers/Teacher.model');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
+const User = require("../../models/Users/User.model");
+const {UserType} = require("../../controllers/users.controller");
 
 // Saving the context of this module inside the _the variable
 _this = this
@@ -30,28 +32,37 @@ exports.getTeachers = async function (query, page, limit) {
 
 exports.createTeacher = async function (teacher) {
     // Creating a new Mongoose Object by using the new keyword
-    var hashedPassword = bcrypt.hashSync(teacher.password, 8);
-    
-    var newTeacher = new Teacher({
+    const hashedPassword = bcrypt.hashSync(teacher.password, 8);
+    const newUser = new User({
+        type: "teacher",
         name: teacher.name,
         email: teacher.email,
         date: new Date(),
         password: hashedPassword
-    })
+    });
+    const newTeacher = new Teacher({
+        name: teacher.name,
+        email: teacher.email,
+        date: new Date(),
+        password: hashedPassword,
+        phone: teacher.phone,
+        title: teacher.title,
+        experience: teacher.experience
+    });
 
     try {
-        // Saving the Teacher 
-        var savedTeacher = await newTeacher.save();
-        var token = jwt.sign({
-            id: savedTeacher._id
+        // Saving the Teacher
+        const savedUser = await newUser.save();
+        newTeacher.save();
+        return jwt.sign({
+            id: savedUser._id
         }, process.env.SECRET, {
             expiresIn: 86400 // expires in 24 hours
         });
-        return token;
     } catch (e) {
         // return a Error message describing the reason 
         console.log(e)    
-        throw Error("Error while Creating Teacher")
+        throw Error("Error while creating teacher")
     }
 }
 

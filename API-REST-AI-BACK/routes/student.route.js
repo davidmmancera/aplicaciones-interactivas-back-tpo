@@ -11,7 +11,6 @@ router.get('/testStudent', function(req, res) {
     res.send('Llegaste a la ruta de student');
   });
 router.post('/registration', StudentController.createStudent);
-router.post('/login/', StudentController.loginStudent);
 router.get('/',Authorization, StudentController.getStudents);
 router.put('/', Authorization, StudentController.updateStudent);
 router.delete('/', Authorization, StudentController.removeStudent);

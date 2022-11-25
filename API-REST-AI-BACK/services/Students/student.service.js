@@ -2,6 +2,8 @@
 var Student = require('../../models/Students/Student.model');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
+const User = require("../../models/Users/User.model");
+const {UserType} = require("../../controllers/users.controller");
 
 // Saving the context of this module inside the _the variable
 _this = this
@@ -30,24 +32,36 @@ exports.getStudents = async function (query, page, limit) {
 
 exports.createStudent = async function (student) {
     // Creating a new Mongoose Object by using the new keyword
-    var hashedPassword = bcrypt.hashSync(student.password, 8);
-    
-    var newStudent = new Student({
+    const hashedPassword = bcrypt.hashSync(student.password, 8);
+    const newUser = new User({
+        type: "student",
         name: student.name,
         email: student.email,
         date: new Date(),
         password: hashedPassword
-    })
+    });
+    const newStudent = new Student({
+        name: student.name,
+        email: student.email,
+        date: new Date(),
+        password: hashedPassword,
+        phone: student.phone,
+        birth: student.birth,
+        primary: student.primary,
+        secondary: student.secondary,
+        associate: student.associate,
+        bachelor: student.bachelor
+    });
 
     try {
-        // Saving the student 
-        var savedStudent = await newStudent.save();
-        var token = jwt.sign({
-            id: savedStudent._id
+        // Saving the student
+        const savedUser = await newUser.save();
+        await newStudent.save();
+        return jwt.sign({
+            id: savedUser._id
         }, process.env.SECRET, {
             expiresIn: 86400 // expires in 24 hours
         });
-        return token;
     } catch (e) {
         // return a Error message describing the reason 
         console.log(e)    
