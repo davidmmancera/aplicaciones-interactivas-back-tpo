@@ -34,6 +34,7 @@ exports.createComment = async function (comment) {
     var newComment = new Comment({
         key: comment.key,
         autor: comment.autor,
+        keyClass: comment.keyClass,
         descripcion: comment.descripcion
     })
 
@@ -69,9 +70,10 @@ exports.updateComment = async function (comment) {
     }
     //Edit the Comment Object
     var hashedPassword = bcrypt.hashSync(comment.password, 8);
-    oldComment.key = comment.key
-    oldComment.autor = comment.autor
-    oldComment.descripcion = comment.descripcion
+    oldComment.key = comment.key;
+    oldComment.autor = comment.autor;
+    oldComment.keyClass = comment.keyClass;
+    oldComment.descripcion = comment.descripcion;
     try {
         var savedComment = await oldComment.save()
         return savedComment;
