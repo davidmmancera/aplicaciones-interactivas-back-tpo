@@ -8,6 +8,7 @@ router.get('/testTeachersClasses', function(req, res) {
     res.send('Llegaste a la ruta de teachers classes');
   });
 router.post('/create', TeacherClassesController.createClass);
+router.get('/all',Authorization, TeacherClassesController.getClasses);
 router.get('/',Authorization, TeacherClassesController.getClass);
 router.get('/filters',Authorization, TeacherClassesController.getFilters);
 router.put('/', Authorization, TeacherClassesController.updateClass);
