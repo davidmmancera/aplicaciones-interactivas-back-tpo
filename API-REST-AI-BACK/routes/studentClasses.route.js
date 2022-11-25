@@ -12,7 +12,7 @@ router.get('/', Authorization, StudentClassesController.getClass);
 router.get('/{id}', Authorization, StudentClassesController.getClassById);
 router.get('/byFilter', Authorization, StudentClassesController.getClasByFilter);
 router.put('/', Authorization, StudentClassesController.updateClass);
-router.put('/', Authorization, StudentClassesController.qualifyClass);
+router.post('/qualify', Authorization, StudentClassesController.qualifyClass);
 router.delete('/', Authorization, StudentClassesController.removeClass);
 
 // Export the Router

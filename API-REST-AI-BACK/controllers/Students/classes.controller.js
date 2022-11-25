@@ -130,17 +130,18 @@ exports.removeClass = async function (req, res, next) {
 exports.qualifyClass = async function (req, res, next) {
 
      // Id is necessary for the update
-     if (!req.body.label) {
-        return res.status(400).json({status: 400., message: "Label be present"})
+     if (!req.body.keyClass) {
+        return res.status(400).json({status: 400., message: "Class be present"})
     }
     
-    var qualify = {       
-        keyClass: req.body.keyClass ? req.body.keyClass : null,
-        qualify: req.body.qualify ? req.body.qualify : null
+    var classQualify = {       
+        key: req.body.keyClass ? req.body.keyClass : null,
+        calificacionId: req.body.qualify ? Number(req.body.qualify.value) : null,
+        calificacion: req.body.qualify ? req.body.qualify.label : null,
     }
 
     try {
-        var updatedClass = await ClassService.qualifyClass(qualify)
+        var updatedClass = await ClassService.qualifyClass(classQualify)
         return res.status(200).json({status: 200, data: updatedClass, message: "Succesfully Updated Class"})
     } catch (e) {
         return res.status(400).json({status: 400., message: e.message})
