@@ -5,6 +5,7 @@ var mongoosePaginate = require('mongoose-paginate')
 var CommentSchema = new mongoose.Schema({
     key: Number,
     autor: String,
+    keyClass: Number,
     descripcion: String,
 })
 

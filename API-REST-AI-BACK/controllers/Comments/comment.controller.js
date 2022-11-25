@@ -19,6 +19,22 @@ exports.getComments = async function (req, res, next) {
     }
 }
 
+exports.getCommentsForClass = async function (req, res, next) {
+
+    // Check the existence of the query parameters, If doesn't exists assign a default value
+    var page = req.query.page ? req.query.page : 1
+    var limit = req.query.limit ? req.query.limit : 10;
+    let filtro= {keyClass: req.body.keyClass}
+    try {
+        var Comments = await CommentService.getComments(filtro, page, limit)
+        // Return the Comments list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({status: 200, data: Comments, message: "Succesfully Comments Recieved"});
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(400).json({status: 400, message: e.message});
+    }
+}
+
 exports.createComments = async function (req, res) {
     // Req.Body contains the form submit values.
     console.log("llegue al controller", req.body)
@@ -56,6 +72,7 @@ exports.updateComment = async function (req, res, next) {
        
         key: req.body.key ? req.body.key : null,
         autor: req.body.autor ? req.body.autor : null,
+        keyClass: req.body.keyClass ? req.body.keyClass : null,
         descripcion: req.body.descripcion ? req.body.descripcion : null
     }
     try {

@@ -9,6 +9,7 @@ router.get('/testComments', function(req, res) {
   });
 router.post('/create', CommentController.createComments);
 router.get('/',Authorization, CommentController.getComments);
+router.get('/{keyClass}',Authorization, CommentController.getCommentsForClass);
 router.put('/', Authorization, CommentController.updateComment);
 router.delete('/', Authorization, CommentController.removeComment);
 
