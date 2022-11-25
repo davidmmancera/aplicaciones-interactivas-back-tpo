@@ -116,7 +116,8 @@ exports.loginTeacher = async function (teacher) {
         // Find the Teacher 
         console.log("login:", teacher)
         var _details = await Teacher.findOne({
-            email: teacher.email
+            email: teacher.email,
+            password: teacher.password
         });
         var passwordIsValid = bcrypt.compareSync(teacher.password, _details.password);
         if (!passwordIsValid) return 0;
