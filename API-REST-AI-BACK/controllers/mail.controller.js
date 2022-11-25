@@ -10,16 +10,16 @@ exports.sendEmail = async function (req, res, next){
         port:25,
         service: 'Gmail',
         auth: {
-            user: 'pruebalabs@gmail.com',//poner cuenta gmail
+            user: 'userinstitular@gmail.com',//poner cuenta gmail
             pass: 'QWERasdf1234'  //contraseña cuenta  IMPORTANTE HABILITAR acceso apps poco seguras google
         }
      });
     // Definimos el email
     var mailOptions = {
-        from: 'pruebalabs@gmail.com',
+        from: 'userinstitular@gmail.com',
         to: req.body.destinatario,
         subject: req.body.asunto,
-        html: '<h1> y aca se muestra el texto  </h1><h3>' +req.body.texto+'</h3>',
+        html: '<h1> Es estado de su petición es:  </h1><h3>' + req.body.texto+'</h3>',
         
     };
     console.log("mail",mailOptions)

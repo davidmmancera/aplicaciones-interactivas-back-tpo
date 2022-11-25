@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const StudentController = require('../controllers/Students/student.controller');
 const UploadController = require('../controllers/upload.controller');
-const MailController = require('../controllers/Users/mail.controller');
+const MailController = require('../controllers/mail.controller');
 const Authorization = require('../auth/authorization');
 
 // Authorize each API with middleware and map to the Controller Functions
