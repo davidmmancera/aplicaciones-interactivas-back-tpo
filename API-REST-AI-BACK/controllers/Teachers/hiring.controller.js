@@ -24,10 +24,13 @@ exports.createHiring = async function (req, res) {
     console.log("Llegue al controller",req.body)
     var hiring = {        
         key: Math.floor(Math.random() * 2147483647),
+        classKey: req.body.classKey,
         nombre: req.body.nombre,
         alumno: req.body.alumno,
         email: req.body.email,
-        estado: req.body.estado
+        telefono: req.body.telefono,
+        horaContacto: req.body.horaContacto,
+        estado: 0
     }
     console.log(req)
     console.log(hiring)

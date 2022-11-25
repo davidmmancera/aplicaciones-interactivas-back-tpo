@@ -4,10 +4,14 @@ var mongoosePaginate = require('mongoose-paginate')
 
 var HiringSchema = new mongoose.Schema({
     key: Number,
+    classKey: Number,
     nombre: String,
     alumno: String,
     email: String,
-    estado: String    
+    telefono: String,
+    horaContacto: String,
+    comentario: String,
+    estado: Boolean
 });
 
 HiringSchema.plugin(mongoosePaginate)

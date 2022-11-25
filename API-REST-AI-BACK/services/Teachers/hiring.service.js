@@ -32,21 +32,19 @@ exports.createHiring = async function (hiring) {
     
     var newHiring = new Hiring({
         key: hiring.key,
+        classKey: hiring.classKey,
         nombre: hiring.nombre,
         alumno: hiring.alumno,
         email: hiring.email,
+        telefono: hiring.telefono,
+        horaContacto: hiring.horaContacto,
         estado: hiring.estado
     })
 
     try {
         // Saving the Hiring 
         var savedHiring = await newHiring.save();
-        var token = jwt.sign({
-            id: savedHiring._key
-        }, process.env.SECRET, {
-            expiresIn: 86400 // expires in 24 hours
-        });
-        return token;
+        return savedHiring;
     } catch (e) {
         // return a Error message describing the reason 
         console.log(e)    
