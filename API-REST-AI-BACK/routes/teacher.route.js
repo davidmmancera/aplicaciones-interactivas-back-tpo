@@ -10,7 +10,7 @@ router.get('/testTeacher', function(req, res) {
     res.send('Llegaste a la ruta de teacher');
   });
 router.post('/registration', TeacherController.createTeacher);
-router.get('/',Authorization, TeacherController.getTeachers);
+router.get('/',Authorization, TeacherController.getTeacher);
 router.put('/', Authorization, TeacherController.updateTeacher);
 router.delete('/', Authorization, TeacherController.removeTeacher);
 router.post('/uploadImg',UploadController.uploadFilesImgUser);

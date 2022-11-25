@@ -85,6 +85,7 @@ exports.createClass = async function (req, res) {
     let key = Math.floor(Math.random() * 2147483647)
     var cls = {        
         key: key,
+        profesorKey: req.body.profesorKey,
         profesor: req.body.profesor,
         experiencia: req.body.experiencia,
         descripcion: req.body.descripcion,
@@ -97,7 +98,8 @@ exports.createClass = async function (req, res) {
     }
     try {
         // Calling the Service function with the new object from the Request Body
-        var createdClass = await ClassService.createClass(cls)
+        const createdClass = await ClassService.createClass(cls);
+        console.log(createdClass)
         return res.status(201).json({createdClass, message: "Succesfully Created Class"})
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.

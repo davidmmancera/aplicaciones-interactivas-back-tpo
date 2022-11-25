@@ -5,15 +5,13 @@ var TeacherImgService =require('../../services/Teachers/teacherImg.service');
 _this = this;
 
 // Async Controller function to get the To do List
-exports.getTeachers = async function (req, res, next) {
+exports.getTeacher = async function (req, res, next) {
+    const query = {token: req.headers['x-access-token']};
 
-    // Check the existence of the query parameters, If doesn't exists assign a default value
-    var page = req.query.page ? req.query.page : 1
-    var limit = req.query.limit ? req.query.limit : 10;
     try {
-        var Teachers = await TeacherService.getTeachers({}, page, limit)
+        const teachers = await TeacherService.getTeacher(query);
         // Return the Teachers list with the appropriate HTTP password Code and Message.
-        return res.status(200).json({status: 200, data: Teachers, message: "Succesfully Teacher Recieved"});
+        return res.status(200).json({status: 200, data: teachers});
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         return res.status(400).json({status: 400, message: e.message});

@@ -97,10 +97,9 @@ exports.getClassByFilter = async function (query, page, limit) {
 }
 
 exports.createClass = async function (cls) {
-    
-    var newClass = new Class({
+    const newClass = new Class({
         key: cls.key,
-        profesorKey: 200,
+        profesorKey: cls.profesorKey,
         calificacion: "Buena",
         profesor: cls.profesor,
         experiencia: cls.experiencia,
@@ -110,8 +109,8 @@ exports.createClass = async function (cls) {
         duracion: cls.duracion,
         frecuencia: cls.frecuencia,
         costo: cls.costo,
-        activo: cls.activo
-    })
+        activo: 1
+    });
 
     try {
         // Saving the class

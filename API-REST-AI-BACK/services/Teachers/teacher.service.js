@@ -8,20 +8,13 @@ const User = require("../../models/Users/User.model");
 _this = this
 
 // Async function to get the Teacher  List
-exports.getTeachers = async function (query, page, limit) {
-
-    // Options setup for the mongoose paginate
-    var options = {
-        page,
-        limit
-    }
+exports.getTeacher = async function (query) {
     // Try Catch the awaited promise to handle the error 
     try {
-        console.log("Query",query)
-        var Teachers = await Teacher.paginate(query, options)
+        const id = jwt.decode(query.token, {complete: true});
+        const user = await User.findOne({_id: id.payload.id});
         // Return the teachers list that was retured by the mongoose promise
-        return Teachers;
-
+        return await Teacher.findOne({key: user.key});
     } catch (e) {
         // return a Error message describing the reason 
         console.log("error services",e)
