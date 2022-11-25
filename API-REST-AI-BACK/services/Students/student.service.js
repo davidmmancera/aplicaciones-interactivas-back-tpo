@@ -31,7 +31,9 @@ exports.getStudents = async function (query, page, limit) {
 exports.createStudent = async function (student) {
     // Creating a new Mongoose Object by using the new keyword
     const hashedPassword = bcrypt.hashSync(student.password, 8);
+    let key = Math.floor(Math.random() * 2147483647)
     const newUser = new User({
+        key: key,
         type: "student",
         name: student.name,
         email: student.email,
@@ -39,6 +41,7 @@ exports.createStudent = async function (student) {
         password: hashedPassword
     });
     const newStudent = new Student({
+        key: key,
         name: student.name,
         email: student.email,
         date: new Date(),

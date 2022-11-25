@@ -100,6 +100,11 @@ exports.createClass = async function (cls) {
     
     var newClass = new Class({
         key: cls.key,
+        profesorKey: 200,
+        calificacion: "Buena",
+        profesor: cls.profesor,
+        experiencia: cls.experiencia,
+        descripcion: cls.descripcion,
         nombre: cls.nombre,
         materia: cls.materia,
         duracion: cls.duracion,
@@ -109,14 +114,8 @@ exports.createClass = async function (cls) {
     })
 
     try {
-        // Saving the class 
-        var savedClass = await newClass.save();
-        var token = jwt.sign({
-            id: savedClass._key
-        }, process.env.SECRET, {
-            expiresIn: 86400 // expires in 24 hours
-        });
-        return token;
+        // Saving the class
+        return await newClass.save();
     } catch (e) {
         // return a Error message describing the reason 
         console.log(e)    

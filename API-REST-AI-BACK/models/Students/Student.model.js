@@ -3,6 +3,7 @@ var mongoosePaginate = require('mongoose-paginate')
 
 
 const StudentSchema = new mongoose.Schema({
+    key: Number,
     name: String,
     email: String,
     password: String,

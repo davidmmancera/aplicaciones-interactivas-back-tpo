@@ -1,10 +1,24 @@
 // Gettign the Newly created Mongoose Model we just created 
 var User = require('../../models/Users/User.model');
+var Teacher = require('../../models/Teachers/Teacher.model');
+var Student = require('../../models/Students/Student.model');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 
 // Saving the context of this module inside the _the variable
 _this = this
+
+// Async function to get the User List
+exports.getAllUser = async function (query) {
+    // Try Catch the awaited promise to handle the error
+    try {
+        return await User.find();
+    } catch (e) {
+        // return a Error message describing the reason
+        console.log("error services",e)
+        throw Error('Error while Paginating Users');
+    }
+}
 
 // Async function to get the User List
 exports.getUser = async function (query) {
@@ -93,14 +107,15 @@ exports.deleteUser = async function (id) {
 
     // Delete the User
     try {
-        var deleted = await User.remove({
-            _id: id
-        })
+        var deleted = await User.remove({key: id})
+        await Teacher.remove({key: id})
+        await Student.remove({key: id})
         if (deleted.n === 0 && deleted.ok === 1) {
             throw Error("User Could not be deleted")
         }
         return deleted;
     } catch (e) {
+        console.log(e)
         throw Error("Error Occured while Deleting the User")
     }
 }

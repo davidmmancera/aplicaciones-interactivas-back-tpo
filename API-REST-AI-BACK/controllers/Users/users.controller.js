@@ -4,6 +4,18 @@ const UserImgService = require('../../services/Users/userImg.service');
 // Saving the context of this module inside the _the variable
 _this = this;
 
+exports.getAllUser = async function (req, res) {
+    const query = {token: req.headers['x-access-token']};
+    try {
+        const Users = await UserService.getAllUser(query);
+        // Return the Users list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({status: 200, data: Users, message: "Succesfully Users Recieved"});
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(400).json({status: 400, message: e.message});
+    }
+}
+
 // Async Controller function to get the To do List
 exports.getUser = async function (req, res) {
     const query = {token: req.headers['x-access-token']};
@@ -74,11 +86,11 @@ exports.updateUser = async function (req, res, next) {
 }
 
 exports.removeUser = async function (req, res, next) {
-
-    var id = req.params.id;
+    var id = req.body.key;
+    console.log("Remove user")
     try {
         var deleted = await UserService.deleteUser(id);
-        res.status(200).send("Succesfully Deleted... ");
+        return res.status(200).send("Succesfully Deleted... ");
     } catch (e) {
         return res.status(400).json({status: 400, message: e.message})
     }

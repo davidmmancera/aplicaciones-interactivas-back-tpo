@@ -85,6 +85,9 @@ exports.createClass = async function (req, res) {
     let key = Math.floor(Math.random() * 2147483647)
     var cls = {        
         key: key,
+        profesor: req.body.profesor,
+        experiencia: req.body.experiencia,
+        descripcion: req.body.descripcion,
         nombre: req.body.nombre,
         materia: req.body.materia,
         duracion: req.body.duracion,
@@ -133,7 +136,7 @@ exports.removeClass = async function (req, res, next) {
     console.log(id)
     try {
         var deleted = await ClassService.deleteClass(id);
-        res.status(200).send("Succesfully Deleted... ");
+        return res.status(200).send("Succesfully Deleted... ");
     } catch (e) {
         return res.status(400).json({status: 400, message: e.message})
     }
