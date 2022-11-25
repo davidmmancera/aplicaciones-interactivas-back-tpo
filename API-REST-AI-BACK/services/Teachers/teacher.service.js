@@ -3,7 +3,6 @@ var Teacher = require('../../models/Teachers/Teacher.model');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 const User = require("../../models/Users/User.model");
-const {UserType} = require("../../controllers/users.controller");
 
 // Saving the context of this module inside the _the variable
 _this = this

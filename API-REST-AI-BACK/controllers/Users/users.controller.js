@@ -5,13 +5,10 @@ const UserImgService = require('../../services/Users/userImg.service');
 _this = this;
 
 // Async Controller function to get the To do List
-exports.getUsers = async function (req, res, next) {
-
-    // Check the existence of the query parameters, If doesn't exists assign a default value
-    var page = req.query.page ? req.query.page : 1
-    var limit = req.query.limit ? req.query.limit : 10;
+exports.getUser = async function (req, res) {
+    const query = {token: req.headers['x-access-token']};
     try {
-        var Users = await UserService.getUsers({}, page, limit)
+        const Users = await UserService.getUser(query);
         // Return the Users list with the appropriate HTTP password Code and Message.
         return res.status(200).json({status: 200, data: Users, message: "Succesfully Users Recieved"});
     } catch (e) {
@@ -22,11 +19,11 @@ exports.getUsers = async function (req, res, next) {
 exports.getUsersByMail = async function (req, res) {
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
-    var page = req.query.page ? req.query.page : 1
-    var limit = req.query.limit ? req.query.limit : 10;
+    const page = req.query.page ? req.query.page : 1;
+    const limit = req.query.limit ? req.query.limit : 10;
     let filtro= {email: req.body.email}
     try {
-        var Users = await UserService.getUsers(filtro, page, limit)
+        const Users = await UserService.getUserByEmail(filtro, page, limit)
         // Return the Users list with the appropriate HTTP password Code and Message.
         return res.status(200).json({status: 200, data: Users, message: "Succesfully Users Recieved"});
     } catch (e) {
