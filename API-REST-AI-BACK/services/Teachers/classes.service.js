@@ -17,9 +17,14 @@ exports.getClass = async function (query, page, limit) {
     // Try Catch the awaited promise to handle the error 
     try {
         console.log("Query",query)
-        var Classes = await Class.paginate(query, options)
+        let classes
+        if (query === {}) {
+            classes = await Class.paginate(query, options)
+        } else {
+            classes = await Class.findOne(query)
+        }
         // Return the students list that was retured by the mongoose promise
-        return Classes;
+        return classes;
 
     } catch (e) {
         // return a Error message describing the reason 
@@ -51,19 +56,12 @@ exports.getFilters = async function (query) {
     }
 }
 
-exports.getClassById = async function (query, page, limit) {
-
-    // Options setup for the mongoose paginate
-    var options = {
-        page,
-        limit
-    }
+exports.getClassById = async function (query) {
     // Try Catch the awaited promise to handle the error 
     try {
         console.log("Query",query)
-        var cls = await Class.paginate(query, options)
         // Return the students list that was retured by the mongoose promise
-        return cls;
+        return await Class.findOne(query);
 
     } catch (e) {
         // return a Error message describing the reason 

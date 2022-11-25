@@ -4,6 +4,10 @@ var mongoosePaginate = require('mongoose-paginate')
 
 var ClassSchema = new mongoose.Schema({
     key: Number,
+    calificacion: String,
+    profesor: String,
+    experiencia: String,
+    descripcion: String,
     nombre: String,
     materia: String,
     duracion: Number,

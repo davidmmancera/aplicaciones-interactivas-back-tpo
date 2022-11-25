@@ -7,19 +7,12 @@ var jwt = require('jsonwebtoken');
 _this = this
 
 // Async function to get the ClassComment  List
-exports.getClassComment = async function (query, page, limit) {
-
-    // Options setup for the mongoose paginate
-    var options = {
-        page,
-        limit
-    }
-    // Try Catch the awaited promise to handle the error 
+exports.getClassComment = async function (query) {
+    // Try Catch the awaited promise to handle the error
     try {
         console.log("Query",query)
-        var classcomment = await ClassComment.paginate(query, options)
         // Return the students list that was retured by the mongoose promise
-        return classcomment;
+        return await ClassComment.find(query);
 
     } catch (e) {
         // return a Error message describing the reason 
@@ -33,8 +26,10 @@ exports.createClassComment = async function (classcomment) {
     // Creating a new Mongoose Object by using the new
 
     var newClassComment = new ClassComment({
-        value: classcomment.value,
-        label: classcomment.label,
+        key: classcomment.key,
+        keyClass: classcomment.keyClass,
+        author: classcomment.autor,
+        comment: classcomment.comentario,
         estado: classcomment.estado
     })
 
@@ -86,7 +81,7 @@ exports.deleteClassComment = async function (id) {
     // Delete the ClassComment
     try {
         var deleted = await ClassComment.remove({
-            _value: id
+            key: id
         })
         if (deleted.n === 0 && deleted.ok === 1) {
             throw Error("ClassComment Could not be deleted")
