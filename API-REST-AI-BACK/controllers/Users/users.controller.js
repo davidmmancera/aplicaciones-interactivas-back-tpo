@@ -1,5 +1,5 @@
-const UserService = require('../services/Users/user.service');
-const UserImgService = require('../services/Users/userImg.service');
+const UserService = require('../../services/Users/user.service');
+const UserImgService = require('../../services/Users/userImg.service');
 
 // Saving the context of this module inside the _the variable
 _this = this;
