@@ -1,36 +1,30 @@
 let nodemailer = require('nodemailer');
 
-
 exports.sendEmail = async function (req, res, next){
-    
-    // Definimos el transporter
-    var transporter = nodemailer.createTransport({
-        //host: 'svp-02715.fibercorp.local',
-        //secure: false,
-        port:25,
-        service: 'Gmail',
-        auth: {
-            user: 'userinstitular@gmail.com',//poner cuenta gmail
-            pass: 'vbhhonlkashvaexw'  //contraseña cuenta  IMPORTANTE HABILITAR acceso apps poco seguras google
-        }
-     });
-    // Definimos el email
-    var mailOptions = {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {user: 'userInstitular@gmail.com', pass: 'vbhhonlkashvaexw'}
+    });
+    const mailOptions = {
         from: 'userinstitular@gmail.com',
-        to: req.body.destinatario,
-        subject: req.body.asunto,
-        html: '<h1> Es estado de su petición es:  </h1><h3>' + req.body.texto+'</h3>',
-        
+        to: req.body.email,
+        subject: "Recuperacion de contraseña",
+        html: '<div>' +
+            '<p>Hola:</p>\n' +
+            '<p>Visita este vínculo para restablecer la contraseña de Institular para tu cuenta de ' + req.body.email + '</p>\n' +
+            '<p><a href="http://localhost:3000/recoverPassword"></a>Recuperá tu contraseña aquí</p>\n' +
+            '<p>Si no solicitaste el restablecimiento de tu contraseña, puedes ignorar este correo electrónico.</p>\n' +
+            '<p>Gracias.</p>\n' +
+            '<p>El equipo de Institular</p>' +
+            '</div>'
     };
-    console.log("mail",mailOptions)
-    // Enviamos el email
-    try
-    {
+
+    try {
         let info = await transporter.sendMail(mailOptions);
         console.log("Message sent: %s", info.messageId);
-    }
-    catch(error)
-    {
-        console.log("Error envio mail: ",error);            
+        return res.status(200).json({status: 200, message: "Mail sent successfully"});
+    } catch(error) {
+        console.log("Error envio mail: ",error);
+        return res.status(400).json({status: 400, message: "Mail not sent"});
     }
 };
