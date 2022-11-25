@@ -28,6 +28,29 @@ exports.getClass = async function (query, page, limit) {
     }
 }
 
+exports.getFilters = async function (query) {
+    // Try Catch the awaited promise to handle the error
+    const subjets = await Class.distinct("materia");
+    const type = await Class.distinct("tipo");
+    const frequency = await Class.distinct("frecuencia");
+    const qualification = await Class.distinct("calificacion");
+    const filters = {
+        materias: subjets,
+        tipo: type,
+        frecuencia: frequency,
+        calificacion: qualification
+    }
+
+    try {
+        // Return the students list that was retured by the mongoose promise
+        return filters
+    } catch (e) {
+        // return a Error message describing the reason
+        console.log("error services",e)
+        throw Error('Error while Paginating Classes');
+    }
+}
+
 exports.getClassById = async function (query, page, limit) {
 
     // Options setup for the mongoose paginate
@@ -44,6 +67,25 @@ exports.getClassById = async function (query, page, limit) {
 
     } catch (e) {
         // return a Error message describing the reason 
+        console.log("error services",e)
+        throw Error('Error while Paginating Classes');
+    }
+}
+
+exports.getClassByFilter = async function (query, page, limit) {
+    // Options setup for the mongoose paginate
+    const options = {
+        page,
+        limit
+    };
+    // Try Catch the awaited promise to handle the error
+    try {
+        console.log("Query",query)
+        // Return the students list that was retured by the mongoose promise
+        return await Class.paginate(query, options);
+
+    } catch (e) {
+        // return a Error message describing the reason
         console.log("error services",e)
         throw Error('Error while Paginating Classes');
     }
