@@ -94,7 +94,7 @@ exports.updateClass = async function (cls) {
         throw Error("Error occured while Finding the Student")
     }
     // If no old Student Object exists return false
-    if (!oldStudent) {
+    if (!oldClass) {
         return false;
     }
 
@@ -130,7 +130,7 @@ exports.qualifyClass = async function (qualify) {
         throw Error("Error occured while Finding the class")
     }
     // If no old Student Object exists return false
-    if (!oldStudent) {
+    if (!oldClass) {
         return false;
     }
 

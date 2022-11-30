@@ -7,7 +7,9 @@ var ClassSchema = new mongoose.Schema({
     classKey: Number,
     studentKey: Number,
     materia: String,
-    frecuencia: String
+    frecuencia: String,
+    calificacion: String,
+    calificacionId: Number
 })
 
 ClassSchema.plugin(mongoosePaginate)
