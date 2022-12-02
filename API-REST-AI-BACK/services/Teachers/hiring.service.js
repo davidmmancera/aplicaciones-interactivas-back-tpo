@@ -82,31 +82,36 @@ exports.updateHiring = async function (hiring) {
     }
 }
 
-exports.approveHiring = async function (clase) {
+exports.approveHiring = async function (hiring) {
     // Delete the Hiring
     try {
-        const deleted = await Hiring.remove({key: clase.key});
+        const deleted = await Hiring.remove({key: hiring.key});
         if (deleted.n === 0 && deleted.ok === 1) {
             throw Error("Hiring Could not be deleted")
         }
-        const classes = await TeacherClass.findOne({key: clase.classKey})
-        console.log(classes)
-        var newClass = new Class({
+        // const classes = await TeacherClass.findOne({key: clase.classKey})
+        console.log(hiring)
+        var newHiringApprove = new Hiring({
             key: Math.floor(Math.random() * 2147483647),
-            classKey: classes.key,
-            profesorKey: classes.profesorKey,
-            studentKey: clase.studentKey,
-            materia: classes.materia,
-            frecuencia: classes.frecuencia
+            classKey: hiring.key,
+            profesorKey: hiring.profesorKey,
+            studentKey: hiring.studentKey,
+            alumno: hiring.alumno,
+            nombre: hiring.nombre,
+            estado: hiring.estado,
+            horaContacto: hiring.horaContacto,
+            email: hiring.email,
+            telefono: hiring.telefono,
+            comentario: hiring.comentario
         })
 
-        var response = await newClass.save();
+        var response = await newHiringApprove.save();
         console.log("Save")
         console.log(response)
 
         await sendEmailHiring({
-            email: clase.email,
-            nombre: clase.nombre,
+            email: hiring.email,
+            nombre: hiring.nombre,
             estado: "Aprobado"
         })
         return deleted;
