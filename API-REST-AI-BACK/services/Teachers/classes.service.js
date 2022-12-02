@@ -59,7 +59,7 @@ exports.getClass = async function (query) {
 // Async function to get the student  List
 exports.pauseClass = async function (query) {
     try {
-        return await Class.findOneAndUpdate(query, {$set:{activo:false}}, {new: true});
+        return await Class.updateOne({ key: query.key }, { activo:false });
     } catch (e) {
         throw Error("And Error occured while updating the Class");
     }
@@ -68,7 +68,7 @@ exports.pauseClass = async function (query) {
 // Async function to get the student  List
 exports.startClass = async function (query) {
     try {
-        return await Class.findOneAndUpdate(query, {$set:{activo:true}}, {new: true});
+        return await Class.updateOne({ key: query.key }, { activo:true });
     } catch (e) {
         throw Error("And Error occured while updating the Class");
     }
