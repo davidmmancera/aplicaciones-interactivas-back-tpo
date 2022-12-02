@@ -20,6 +20,40 @@ exports.getClasses = async function (req, res, next) {
     }
 }
 
+exports.getAverageClassesQualify = async function (req, res, next) {
+    let query = {}
+
+    // Check the existence of the query parameters, If doesn't exists assign a default value
+    var page = req.query.page ? req.query.page : 1
+    var limit = req.query.limit ? req.query.limit : 100;
+    try {
+        var cls = await ClassService.getAverageClassesQualify(query, page, limit)
+        let averageList = [];
+        cls.docs.map(c => {
+            averageList.push(c._doc.calificacion);
+        });
+            let variable = 0;
+            let contador = 0;
+            let cuenta = 0;
+            averageList.map(p => {
+                cuenta = 0
+                averageList.map(x => {
+                    if (p == x) { cuenta++ }
+                })
+                if (cuenta > contador) {
+                    contador = cuenta;
+                    variable = p;
+                }
+            });
+        let average = variable;
+        // Return the classes average with the appropriate HTTP password Code and Message.
+        return res.status(200).json({status: 200, data: average, message: "Succesfully Class Average Recieved"});
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(400).json({status: 400, message: e.message});
+    }
+}
+
 exports.getClass = async function (req, res, next) {
     let query = {key: req.headers['key']}
 

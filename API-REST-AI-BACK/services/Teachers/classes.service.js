@@ -25,6 +25,25 @@ exports.getClasses = async function (query, page, limit) {
     }
 }
 
+exports.getAverageClassesQualify = async function (query, page, limit) {
+    // Options setup for the mongoose paginate
+    var options = {
+        page,
+        limit
+    }
+    // Try Catch the awaited promise to handle the error
+    try {
+        console.log("Query",query)
+        // Return the students list that was retured by the mongoose promise
+        return await Class.paginate(query, options);
+
+    } catch (e) {
+        // return a Error message describing the reason
+        console.log("error services",e)
+        throw Error('Error while Paginating Classes');
+    }
+}
+
 // Async function to get the student  List
 exports.getClass = async function (query) {
 
