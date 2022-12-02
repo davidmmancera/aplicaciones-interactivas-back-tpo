@@ -71,19 +71,14 @@ exports.approveHire = async function (req, res, next) {
     const clase = {
         key: req.body.key,
         classKey: req.body.classKey,
-        profesorKey: req.body.profesorKey,
         studentKey: req.body.studentKey,
-        alumno: req.body.alumno,
         email: req.body.email,
-        nombre: req.body.nombre,
-        comentario: req.body.comentario,
-        horaContacto: req.body.horaContacto,
-        estado: true
+        nombre: req.body.nombre
     };
     console.log(clase)
     try {
-        var response = await HiringService.approveHiring(clase);
-        return res.status(200).send({status: 200, data: response, message: "Succesfully approve... "});
+        await HiringService.approveHiring(clase);
+        res.status(200).send("Succesfully Deleted... ");
     } catch (e) {
         return res.status(400).json({status: 400, message: e.message})
     }
