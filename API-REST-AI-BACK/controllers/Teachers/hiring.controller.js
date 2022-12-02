@@ -70,10 +70,12 @@ exports.updateHiring = async function (req, res, next) {
 exports.approveHire = async function (req, res, next) {
     const clase = {
         key: req.body.key,
+        classKey: req.body.classKey,
         studentKey: req.body.studentKey,
         email: req.body.email,
         nombre: req.body.nombre
     };
+    console.log(clase)
     try {
         await HiringService.approveHiring(clase);
         res.status(200).send("Succesfully Deleted... ");

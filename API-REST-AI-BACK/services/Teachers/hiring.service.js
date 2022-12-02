@@ -89,7 +89,8 @@ exports.approveHiring = async function (clase) {
         if (deleted.n === 0 && deleted.ok === 1) {
             throw Error("Hiring Could not be deleted")
         }
-        const classes = await TeacherClass.findOne({classKey: clase.classKey})
+        const classes = await TeacherClass.findOne({key: clase.classKey})
+        console.log(classes)
         var newClass = new Class({
             key: classes.key,
             studentKey: clase.studentKey,
