@@ -85,6 +85,28 @@ exports.updateUser = async function (req, res, next) {
     }
 }
 
+exports.recoverPassword = async function (req, res, next) {
+    const token = req.headers['x-access-token']
+
+    // Id is necessary for the update
+    if (!token) {
+        return res.status(400).json({status: 400., message: "El token es invalido o no existe."})
+    }
+
+    const recover = {
+        token: token,
+        password: req.body.password,
+    };
+
+    try {
+        const updatedUser = await UserService.recoverPassword(recover);
+        console.log(updatedUser)
+        return res.status(200).json({status: 200, data: updatedUser})
+    } catch (e) {
+        return res.status(400).json({status: 400., message: e.message})
+    }
+}
+
 exports.removeUser = async function (req, res, next) {
     var id = req.body.key;
     console.log("Remove user")

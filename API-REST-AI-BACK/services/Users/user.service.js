@@ -103,6 +103,17 @@ exports.updateUser = async function (user) {
     }
 }
 
+exports.recoverPassword = async function (recover) {
+    const id = jwt.decode(recover.token, {complete: true});
+    const hashedPassword = bcrypt.hashSync(recover.password, 8);
+
+    try {
+        return await User.updateOne({ _id: id.payload.id }, { password: hashedPassword });
+    } catch (e) {
+        throw Error("No pudimos recuperar la clave.");
+    }
+}
+
 exports.deleteUser = async function (id) {
 
     // Delete the User
