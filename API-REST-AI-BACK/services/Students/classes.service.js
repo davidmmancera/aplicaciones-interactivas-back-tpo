@@ -151,9 +151,7 @@ exports.deleteClass = async function (id) {
 
     // Delete the Class
     try {
-        var deleted = await Class.remove({
-            _id: id
-        })
+        var deleted = await Class.remove({key: id})
         if (deleted.n === 0 && deleted.ok === 1) {
             throw Error("Class Could not be deleted")
         }

@@ -107,7 +107,7 @@ exports.updateClass = async function (req, res, next) {
 
 exports.removeClass = async function (req, res, next) {
 
-    var id = req.params.value;
+    var id = req.body.key;
     try {
         var deleted = await ClassService.deleteClass(id);
         res.status(200).send("Succesfully Deleted... ");

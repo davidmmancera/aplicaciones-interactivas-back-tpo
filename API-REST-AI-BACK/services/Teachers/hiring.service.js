@@ -92,7 +92,9 @@ exports.approveHiring = async function (clase) {
         const classes = await TeacherClass.findOne({key: clase.classKey})
         console.log(classes)
         var newClass = new Class({
-            key: classes.key,
+            key: Math.floor(Math.random() * 2147483647),
+            classKey: classes.key,
+            profesorKey: classes.profesorKey,
             studentKey: clase.studentKey,
             materia: classes.materia,
             frecuencia: classes.frecuencia
