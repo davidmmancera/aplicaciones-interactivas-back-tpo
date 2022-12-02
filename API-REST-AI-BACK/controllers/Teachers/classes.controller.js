@@ -4,11 +4,27 @@ var ClassService = require('../../services/Teachers/classes.service');
 _this = this;
 
 // Async Controller function to get the To do List
-exports.getClasses = async function (req, res, next) {
+exports.getClasses = async function (req, res, next)  {
+    let query = {}
+    // Check the existence of the query parameters, If doesn't exists assign a default value
+    var page = req.query.page ? req.query.page : 1
+    var limit = req.query.limit ? req.query.limit : 100;
+    try {
+        var cls = await ClassService.getClasses(query, page, limit)
+        // Return the Classes list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({status: 200, data: cls, message: "Succesfully Class Recieved"});
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(400).json({status: 400, message: e.message});
+    }
+}
+
+// Async Controller function to get the To do List
+exports.getProfessorClasses = async function (req, res, next) {
     const query = {token: req.headers['x-access-token']};
 
     try {
-        const cls = await ClassService.getClasses(query);
+        const cls = await ClassService.getProfessorClasses(query);
         // Return the Classes list with the appropriate HTTP password Code and Message.
         console.log(cls)
         return res.status(200).json({status: 200, data: cls, message: "Succesfully Class Recieved"});

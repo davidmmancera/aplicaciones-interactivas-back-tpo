@@ -8,6 +8,24 @@ const User = require("../../models/Users/User.model");
 _this = this
 
 exports.getClasses = async function (query, page, limit) {
+    // Options setup for the mongoose paginate
+    var options = {
+        page,
+        limit
+    }
+    // Try Catch the awaited promise to handle the error
+    try {
+        console.log("Query",query)
+        // Return the students list that was retured by the mongoose promise
+        return await Class.paginate({activo: true}, options);
+    } catch (e) {
+        // return a Error message describing the reason
+        console.log("error services",e)
+        throw Error('Error while Paginating Classes');
+    }
+}
+
+exports.getProfessorClasses = async function (query, page, limit) {
     // Try Catch the awaited promise to handle the error
     try {
         const id = jwt.decode(query.token, {complete: true});
@@ -21,6 +39,7 @@ exports.getClasses = async function (query, page, limit) {
         throw Error('Error while Paginating Classes');
     }
 }
+
 
 exports.getAverageClassesQualify = async function (query, page, limit) {
     // Options setup for the mongoose paginate

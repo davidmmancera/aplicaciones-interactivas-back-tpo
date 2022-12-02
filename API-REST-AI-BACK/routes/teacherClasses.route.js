@@ -9,6 +9,7 @@ router.get('/testTeachersClasses', function(req, res) {
   });
 router.post('/create', TeacherClassesController.createClass);
 router.get('/all', Authorization, TeacherClassesController.getClasses);
+router.get('/teacher', Authorization, TeacherClassesController.getProfessorClasses);
 router.get('/average', TeacherClassesController.getAverageClassesQualify);
 router.get('/',Authorization, TeacherClassesController.getClass);
 router.get('/filters',Authorization, TeacherClassesController.getFilters);
