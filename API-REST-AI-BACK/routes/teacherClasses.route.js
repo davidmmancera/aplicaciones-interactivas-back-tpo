@@ -13,6 +13,8 @@ router.get('/average', TeacherClassesController.getAverageClassesQualify);
 router.get('/',Authorization, TeacherClassesController.getClass);
 router.get('/filters',Authorization, TeacherClassesController.getFilters);
 router.put('/', Authorization, TeacherClassesController.updateClass);
+router.put('/pause', Authorization, TeacherClassesController.pauseClass);
+router.put('/start', Authorization, TeacherClassesController.startClass);
 router.delete('/', Authorization, TeacherClassesController.removeClass);
 
 

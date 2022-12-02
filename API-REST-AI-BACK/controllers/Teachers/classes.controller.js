@@ -5,14 +5,12 @@ _this = this;
 
 // Async Controller function to get the To do List
 exports.getClasses = async function (req, res, next) {
-    let query = {}
+    const query = {token: req.headers['x-access-token']};
 
-    // Check the existence of the query parameters, If doesn't exists assign a default value
-    var page = req.query.page ? req.query.page : 1
-    var limit = req.query.limit ? req.query.limit : 100;
     try {
-        var cls = await ClassService.getClasses(query, page, limit)
+        const cls = await ClassService.getClasses(query);
         // Return the Classes list with the appropriate HTTP password Code and Message.
+        console.log(cls)
         return res.status(200).json({status: 200, data: cls, message: "Succesfully Class Recieved"});
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
@@ -128,7 +126,7 @@ exports.createClass = async function (req, res) {
         duracion: req.body.duracion,
         frecuencia: req.body.frecuencia,
         costo: req.body.costo,
-        activo: req.body.activo
+        activo: true
     }
     try {
         // Calling the Service function with the new object from the Request Body
@@ -148,8 +146,8 @@ exports.updateClass = async function (req, res, next) {
     if (!req.body.key) {
         return res.status(400).json({status: 400., message: "Label be present"})
     }
-    
-    var cls = {       
+
+    var cls = {
         key: req.body.key ? req.body.key : null,
         nombre: req.body.nombre ? req.body.nombre : null,
         materia: req.body.materia ? req.body.materia : null,
@@ -166,6 +164,35 @@ exports.updateClass = async function (req, res, next) {
     }
 }
 
+exports.pauseClass = async function (req, res, next) {
+    let query = {key: req.body.key}
+
+    try {
+        const cls = await ClassService.pauseClass(query);
+        // Return the Classes list with the appropriate HTTP password Code and Message.
+        console.log(cls)
+        return res.status(200).json({status: 201, data: cls});
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(400).json({status: 400, message: e.message});
+    }
+}
+
+exports.startClass = async function (req, res, next) {
+    let query = {key: req.body.key}
+
+    try {
+        const cls = await ClassService.startClass(query);
+        // Return the Classes list with the appropriate HTTP password Code and Message.
+        console.log(cls)
+        return res.status(200).json({status: 201, data: cls});
+    } catch (e) {
+        console.log(e)
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(400).json({status: 400, message: e.message});
+    }
+}
+
 exports.removeClass = async function (req, res, next) {
 
     var id = req.body.key;
@@ -177,58 +204,3 @@ exports.removeClass = async function (req, res, next) {
         return res.status(400).json({status: 400, message: e.message})
     }
 }
-
-exports.pauseClass = async function (req, res, next) {
-
-    // Id is necessary for the update
-    if (!req.body.key) {
-        return res.status(400).json({status: 400., message: "Label be present"})
-    }
-    
-    var cls = {       
-        key: req.body.key ? req.body.key : null,
-        nombre: req.body.nombre ? req.body.nombre : null,
-        materia: req.body.materia ? req.body.materia : null,
-        duracion: req.body.duracion ? req.body.duracion : null,
-        frecuencia: req.body.frecuencia ? req.body.frecuencia : null,
-        costo: req.body.costo ? req.body.costo : null,
-        activo: 0, //AQUI SE PAUSA LA CLASE
-    }
-    try {
-        var updatedClass = await ClassService.updateClass(cls)
-        return res.status(200).json({status: 200, data: updatedClass, message: "Succesfully Updated Class"})
-    } catch (e) {
-        return res.status(400).json({status: 400., message: e.message})
-    }
-}
-
-exports.activeClass = async function (req, res, next) {
-
-    // Id is necessary for the update
-    if (!req.body.key) {
-        return res.status(400).json({status: 400., message: "Label be present"})
-    }
-    
-    var cls = {       
-        key: req.body.key ? req.body.key : null,
-        nombre: req.body.nombre ? req.body.nombre : null,
-        materia: req.body.materia ? req.body.materia : null,
-        duracion: req.body.duracion ? req.body.duracion : null,
-        frecuencia: req.body.frecuencia ? req.body.frecuencia : null,
-        costo: req.body.costo ? req.body.costo : null,
-        activo: 1, //AQUI SE ACTIVA LA CLASE
-    }
-    try {
-        var updatedClass = await ClassService.updateClass(cls)
-        return res.status(200).json({status: 200, data: updatedClass, message: "Succesfully Updated Class"})
-    } catch (e) {
-        return res.status(400).json({status: 400., message: e.message})
-    }
-}
-
-
-
-
-
-    
-    

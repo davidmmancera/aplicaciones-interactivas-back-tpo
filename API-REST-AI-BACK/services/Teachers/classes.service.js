@@ -2,21 +2,18 @@
 var Class = require('../../models/Teachers/classes.model');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
+const User = require("../../models/Users/User.model");
 
 // Saving the context of this module inside the _the variable
 _this = this
 
 exports.getClasses = async function (query, page, limit) {
-    // Options setup for the mongoose paginate
-    var options = {
-        page,
-        limit
-    }
     // Try Catch the awaited promise to handle the error
     try {
-        console.log("Query",query)
+        const id = jwt.decode(query.token, {complete: true});
+        const user = await User.findOne({_id: id.payload.id});
         // Return the students list that was retured by the mongoose promise
-        return await Class.paginate(query, options);
+        return await Class.find({profesorKey: user.key});
 
     } catch (e) {
         // return a Error message describing the reason
@@ -49,13 +46,31 @@ exports.getClass = async function (query) {
 
     // Try Catch the awaited promise to handle the error 
     try {
-        console.log("Query",query)
+        
         // Return the students list that was retured by the mongoose promise
         return  await Class.findOne(query)
     } catch (e) {
         // return a Error message describing the reason 
         console.log("error services",e)
         throw Error('Error while Paginating Classes');
+    }
+}
+
+// Async function to get the student  List
+exports.pauseClass = async function (query) {
+    try {
+        return await Class.findOneAndUpdate(query, {$set:{activo:false}}, {new: true});
+    } catch (e) {
+        throw Error("And Error occured while updating the Class");
+    }
+}
+
+// Async function to get the student  List
+exports.startClass = async function (query) {
+    try {
+        return await Class.findOneAndUpdate(query, {$set:{activo:true}}, {new: true});
+    } catch (e) {
+        throw Error("And Error occured while updating the Class");
     }
 }
 
@@ -85,7 +100,7 @@ exports.getFilters = async function (query) {
 exports.getClassById = async function (query) {
     // Try Catch the awaited promise to handle the error 
     try {
-        console.log("Query",query)
+        
         // Return the students list that was retured by the mongoose promise
         return await Class.findOne(query);
 
@@ -104,7 +119,7 @@ exports.getClassByFilter = async function (query, page, limit) {
     };
     // Try Catch the awaited promise to handle the error
     try {
-        console.log("Query",query)
+        
         // Return the students list that was retured by the mongoose promise
         return await Class.paginate(query, options);
 
@@ -142,7 +157,7 @@ exports.createClass = async function (cls) {
 }
 
 exports.updateClass = async function (cls) {
-    
+
     var id = {key :cls.key}
 
     try {
@@ -162,13 +177,12 @@ exports.updateClass = async function (cls) {
     oldClass.materia = cls.materia
     oldClass.duracion = cls.duracion
     oldClass.frecuencia = cls.frecuencia
-    oldClass.costo = cls.costo,
+    oldClass.costo = cls.costo
     oldClass.activo = cls.activo
 
 
     try {
-        var savedClass = await oldClass.save()
-        return savedClass;
+        return await oldClass.save();
     } catch (e) {
         throw Error("And Error occured while updating the Class");
     }
