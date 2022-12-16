@@ -47,6 +47,7 @@ exports.createComments = async function (req, res) {
     //OBJETO SOLO CON EL DATO DEL COMENTARIO
     var Comment = {
         descripcion: req.body.comment,
+        classKey: req.body.classKey
     }
 
     try {
